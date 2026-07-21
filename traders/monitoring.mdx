@@ -1,0 +1,53 @@
+---
+title: "Monitor Your Agent Deployments in Real Time"
+sidebarTitle: "Monitoring"
+description: "Track live performance, trade history, P&L, and drawdown for every AI agent you have deployed on Agent Circle from your personal dashboard."
+---
+
+Once your agents are live, your dashboard becomes your command center. Every deployment you run has its own real-time feed of P&L, open positions, and trade activity, all pulling directly from on-chain data so the numbers you see reflect what is actually happening on Solana — not a cached or estimated approximation. You do not need to refresh the page; the dashboard streams updates continuously.
+
+## What's on the Dashboard
+
+When you open the **Dashboard** from the top navigation, you see a summary row at the top showing your aggregate figures across all active deployments: total deployed capital, combined unrealized P&L, combined realized P&L, and the highest current drawdown across any single deployment.
+
+Below the summary row, each deployment has its own card. Each card displays:
+
+- **Agent name and status** — LIVE, PAUSED, or STOPPED, with the time elapsed since deployment.
+- **Live P&L** — your current profit or loss on this deployment, updated in real time. Unrealized P&L (from open positions) is shown separately from realized P&L (from closed trades) so you can distinguish between what you have locked in and what is still at risk.
+- **Current drawdown** — how far the deployment balance has fallen from its peak since you deployed. Expressed as a percentage and as an absolute USDC amount. A progress bar visualizes how close the drawdown is to your configured limit.
+- **Open positions** — the number of currently open positions and their combined notional value. Click to expand and see individual position details: market, direction, entry price, current value, and unrealized P&L per position.
+- **Trade count** — total trades placed since deployment, broken into wins, losses, and pushes.
+
+## Reading the Performance Charts
+
+Click any deployment card to open its full monitoring view. The main panel is an interactive equity curve chart showing your deployment balance over time. The x-axis represents time since deployment; the y-axis shows your balance in USDC. A dashed horizontal line marks your starting deployed balance so you can immediately see whether you are above or below breakeven.
+
+Use the timeframe selector above the chart to zoom in on the last 24 hours, 7 days, 30 days, or the full deployment history. Hovering over any point on the chart shows the exact balance, cumulative return percentage, and number of trades completed at that moment.
+
+Below the equity curve, a **Drawdown Chart** shows the rolling drawdown over the same time period. This chart makes it easy to spot when the agent experienced its worst periods and how quickly it recovered. Shallow, brief dips that resolve quickly indicate a resilient strategy; a chart that trends steadily downward is a signal to investigate before the drawdown limit is reached.
+
+## Alerts and Notifications
+
+Agent Circle sends you alerts at two points during a deployment's lifecycle:
+
+**Drawdown warning** — when your current drawdown reaches 75% of your configured max drawdown limit, you receive a warning notification in the dashboard notification center (the bell icon in the top-right corner) and, if you have enabled it in your account settings, an email or mobile push notification. This alert gives you time to review the situation before the auto-pause triggers. The notification includes the current drawdown percentage, your limit, and a direct link to the deployment's monitoring view.
+
+**Auto-pause notification** — when your max drawdown limit is breached and the agent pauses automatically, you receive an immediate high-priority notification through all channels you have configured. The notification includes the final drawdown figure, the time the limit was breached, and a **Review & Resume** link that takes you directly to the configuration panel.
+
+To manage your notification preferences, go to **Settings → Notifications** and choose which channels you want to use for each alert type.
+
+## Comparing Multiple Active Deployments
+
+If you are running more than one agent simultaneously, the dashboard summary row gives you an at-a-glance comparison. For a more detailed side-by-side view, click **Compare Deployments** in the top-right of the dashboard. This opens a multi-column view where each deployment occupies one column, showing its equity curve, win rate, current drawdown, and realized P&L on a shared timeline.
+
+Use this view to identify which agents are performing well under current market conditions and which are struggling. If two agents are trading similar markets, the comparison view makes it easy to see which strategy is better suited to the current regime — useful information when you decide whether to adjust risk controls or reallocate capital.
+
+## Exporting Trade History
+
+To export a full record of an agent's trade activity, open the deployment's monitoring view and click the **Trade History** tab. The tab shows a paginated log of every trade placed, including market, direction, entry and exit timestamps, position size, realized P&L, and outcome.
+
+To export this data, click **Export CSV** in the top-right corner of the Trade History tab. You can export the full history or apply a date range filter first. The CSV file includes one row per trade and all the fields displayed in the table, making it straightforward to import into a spreadsheet for further analysis or tax record-keeping.
+
+<Tip>
+  Set a recurring reminder to review each active deployment's performance once a week. Pay particular attention to the drawdown chart — if the current drawdown is consistently trending deeper than the agent's historical average, market conditions may have shifted in a way that no longer suits the strategy. A weekly review gives you the opportunity to tighten your position cap, widen your drawdown limit to allow more recovery room, or stop the deployment before it reaches your limit. Small, regular adjustments are far more effective than large reactive changes made in the middle of a drawdown.
+</Tip>

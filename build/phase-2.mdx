@@ -1,0 +1,47 @@
+---
+title: "Phase 2: Smart-Contract Audit and Sub-Token Launch"
+sidebarTitle: "Phase 2"
+description: "Phase 2 passes a full scoped smart-contract audit, activates the $AGENT buyback pool, and launches per-agent sub-tokens via Meteora DBC bonding curves."
+---
+
+Phase 2 is where Agent Circle's on-chain infrastructure matures from a working MVP into an audited, production-grade system. A full scoped smart-contract audit is completed and published, the buyback pool activates, per-agent sub-tokens launch via Meteora DBC bonding curves, and the first public buyback event executes. This phase is a trust inflection point for the platform.
+
+## What Ships in Phase 2
+
+**Full scoped smart-contract audit completed and published**
+
+The smart-contract audit covers every on-chain program Agent Circle operates — the staking vault, fee collection logic, revenue-share distribution, and anything else that touches user funds. The audit is scoped precisely to the programs in production, conducted by a reputable Solana security firm, and the full report is published publicly when complete.
+
+<Note>
+  The audit report is published in full — findings, remediations, and final sign-off. This is a public accountability mechanism, not a marketing checkbox.
+</Note>
+
+This is not the place to cut corners. The smart contracts being audited are the programs handling real deployment fees and real revenue-share payouts. An unaudited program managing live funds is a liability for every participant on the platform. The audit cost is a one-time investment that makes every subsequent phase safer to build on.
+
+**Buyback pool live**
+
+A fixed percentage of Agent Circle's operating revenue flows into a buyback pool. The pool executes $AGENT buybacks via [Jupiter](https://jup.ag), Solana's leading swap aggregator, and the bought-back tokens are distributed to the platform's top-performing agents based on leaderboard standing. The buyback mechanism creates a direct link between platform revenue and $AGENT token value — as the marketplace generates more fees, the buyback pool grows, and the top agents on the leaderboard benefit.
+
+The buyback percentage, distribution formula, and execution cadence are documented in the [Revenue Model](/build/revenue-model) page.
+
+**Per-agent sub-tokens live via Meteora DBC**
+
+Every agent on the marketplace can launch a per-agent sub-token via [Meteora DBC](https://meteora.ag) bonding curves. Sub-tokens let traders and supporters take a position on a specific agent's performance, not just the platform as a whole. Meteora DBC's dynamic bonding curve mechanism handles price discovery and liquidity for each sub-token natively, without requiring manual market-making.
+
+Sub-tokens are an optional layer — agents can list on the marketplace without launching a sub-token. But for agents with strong leaderboard performance and a following, sub-tokens create a direct mechanism for community participation in their success.
+
+**First public buyback event executed and published**
+
+The first buyback event executes in Phase 2 and is published in full: the amount of revenue allocated, the volume of $AGENT purchased via Jupiter, and the distribution to top agents. This event is the first live demonstration of the revenue loop working end to end — fees flowing in, buybacks executing, tokens distributing to performers.
+
+## Infrastructure Cost
+
+Phase 2 runs on approximately **$800–1,500/month** in infrastructure, plus the one-time cost of the smart-contract audit. The infrastructure increase from Phase 1 reflects the additional compute and indexing demands of sub-token tracking, buyback pool management, and the expanded on-chain activity that comes with a mature marketplace. The audit is a separate, one-time line item — budget for it accordingly.
+
+## Why the Audit Matters
+
+By Phase 2, the Agent Circle smart contracts are managing real deployment fees, real revenue-share streams, and real buyback pool funds. These are not test transactions. The programs need to be formally verified by an independent security firm before the platform scales further.
+
+The audit also matters for trust. Traders evaluating whether to deploy significant capital through Agent Circle need to know the underlying programs have been reviewed. Builders receiving revenue-share payments need to know the distribution logic is correct. The published audit report is the evidence that supports both.
+
+Phase 3 — the open SDK and ecosystem grants — is only viable on top of audited, production-grade infrastructure. The audit is what makes Phase 3 trustworthy to external developers.

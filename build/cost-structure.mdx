@@ -1,0 +1,44 @@
+---
+title: "Agent Circle Cost Structure by Build Phase"
+sidebarTitle: "Cost Structure"
+description: "Agent Circle's infrastructure costs scale deliberately from $100-150/month at Phase 0 to audit-funded Phase 2, keeping most budget available for engineering and developer revenue share."
+---
+
+Agent Circle is built on existing Solana infrastructure primitives — Streamflow for payment streaming, Meteora for bonding curves, Jupiter for swaps, Helius for RPC and indexing. That choice is deliberate. Using proven, maintained infrastructure instead of building everything from scratch keeps monthly costs low across every phase, which in turn keeps developer revenue-share rates high. The platform's cost structure is intentionally lean at the infrastructure layer so that the economics stay favorable at the contributor layer.
+
+Here is what the numbers look like across each phase, and why each phase costs what it does.
+
+## Cost by Phase
+
+| Phase | Monthly Infrastructure | One-Time Costs | What You're Paying For |
+|---|---|---|---|
+| **Phase 0** | ~$100–150/mo | None | Core RPC access (Helius), basic hosting, monitoring, devnet operations |
+| **Phase 1** | ~$300–600/mo | None | Expanded RPC, staging environments, Streamflow and Meteora integrations live, increased compute |
+| **Phase 2** | ~$800–1,500/mo | Full smart-contract audit | Production traffic, multi-environment ops, performance fee mechanics on-chain, audit funded properly |
+| **Phase 3** | Scales with usage/revenue | Developer-relations and hackathon budget | Demand-driven compute, API gateway scaling, external developer tooling, ecosystem growth |
+
+## Why Infrastructure Is Cheap
+
+Agent Circle does not operate its own settlement layer, its own streaming payment protocol, or its own swap routing engine. Each of those already exists on Solana and is maintained by teams whose entire focus is keeping that primitive reliable. Using Streamflow for revenue streaming, Meteora DBC for bonding curves, Jupiter for buybacks, and Helius for RPC means Agent Circle pays usage costs, not infrastructure ownership costs.
+
+This matters for builders because it directly shapes what the platform can afford to return to them. Low fixed infrastructure costs mean the margin available for developer revenue share is wider. When 80% of the real cost is engineering time and product decisions — not servers — the platform can sustain generous revenue-share rates without compromising its own operations.
+
+## What Each Phase's Infrastructure Supports
+
+**Phase 0** is minimal by design. The goal is a working product with real agents and real users on devnet, not a scalable production system. A few hundred dollars a month covers the RPC access needed for development, basic application hosting, and monitoring. Nothing is over-provisioned.
+
+**Phase 1** brings the core integrations live on mainnet: Streamflow begins streaming real revenue to builders, Meteora DBC curves are deployed for agent sub-tokens, and the platform begins handling real user activity. The infrastructure cost increase reflects the move from staging to production — additional RPC capacity, more robust hosting, and the operational overhead of running live financial software.
+
+**Phase 2** introduces on-chain performance fee mechanics, which means smart contracts are now handling real money on behalf of real users. The monthly cost increase reflects production-grade infrastructure capable of supporting that. The one-time audit cost is a separate line item and is not subject to negotiation or deferral.
+
+**Phase 3** scales with demand. If the platform grows, infrastructure costs grow proportionally. The developer-relations and hackathon budget that appears in Phase 3 is an investment in ecosystem expansion — funded by Phase 2 revenue, not by speculation about future growth.
+
+<Note>
+  The smart-contract audit in Phase 2 is not a discretionary cost. On-chain performance fee mechanics involve real user funds, and the audit is what makes those mechanics trustworthy — for users and for builders. Cutting corners on the audit to save money at this stage would undermine exactly the credibility the platform needs to grow. It is funded properly, not fitted around other expenses.
+</Note>
+
+## Cost, Engineering, and Contributor Economics
+
+The most significant cost at every phase is not infrastructure — it is the engineering time required to build and maintain the product correctly. Infrastructure costs in the hundreds to low thousands of dollars per month are small relative to the effort involved in building reliable on-chain payment mechanics, maintaining integrations across multiple Solana protocols, and supporting a growing developer ecosystem.
+
+That asymmetry is good news for contributors. The platform's ability to offer 10–25% revenue-share rates across Builder Score tiers is sustainable precisely because it is not carrying massive fixed infrastructure overhead. Generous developer economics and lean infrastructure are not in tension here — the second enables the first.

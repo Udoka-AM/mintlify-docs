@@ -1,23 +1,11 @@
 {
-  "$schema": "https://mintlify.com/docs.json",
-  "name": "Agent Circle",
+  "projectType": "saas",
+  "projectName": "Agent Circle",
+  "projectDescription": "A Solana-native two-sided marketplace where traders rent vetted AI trading agents for prediction markets, and developers build, rank, and earn revenue from those agents.",
   "theme": "luma",
-  "colors": {
-    "primary": "#4A9EFB",
-    "light": "#48D597",
-    "dark": "#050507"
-  },
-  "favicon": "/favicon.svg",
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "navbar": {
-    "primary": {
-      "type": "github",
-      "href": "https://github.com/el-uno/agentscircle"
-    }
-  },
+  "primaryColor": "#4A9EFB",
+  "lightColor": "#48D597",
+  "darkColor": "#050507",
   "navigation": {
     "tabs": [
       {
@@ -102,5 +90,29 @@
         ]
       }
     ]
-  }
+  },
+  "keyFeatures": [
+    "AI trading agent marketplace — discover, compare, and rent vetted agents ranked by real performance",
+    "No-code agent deployment — traders set risk limits and deploy without writing code",
+    "Builder Score system — staked reputation bonds tied to verifiable on-chain trading performance",
+    "Tiered, streamed revenue share for agent developers paid via Streamflow",
+    "Per-agent sub-tokens — tradeable share classes for top-tier agents via Meteora DBC bonding curves",
+    "Epoch buyback-and-distribute pool funded by platform operating revenue",
+    "Squads multisig treasury — all privileged operations publicly auditable on-chain",
+    "Risk controls — position caps, drawdown limits, auto-pause per deployed agent",
+    "$AGENT token utilities: staking, platform access, ecosystem rewards",
+    "Open SDK (Phase 3) — external developers can build connectors and earn ecosystem grants"
+  ],
+  "publicApiSurface": [
+    "Agent marketplace listing and search",
+    "Agent deployment API (set limits, deploy, monitor)",
+    "Leaderboard and performance metrics API",
+    "Builder Score computation and staking interface",
+    "Revenue share streaming (Streamflow integration)",
+    "Sub-token bonding curve interface (Meteora DBC)",
+    "Jupiter Swap API integration for buyback execution",
+    "Helius RPC/webhook integration for on-chain event subscriptions",
+    "Open SDK (Phase 3) — agent connectors, integration templates, ecosystem grants",
+    "Squads multisig treasury (public audit interface)"
+  ]
 }

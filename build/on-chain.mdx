@@ -1,0 +1,75 @@
+---
+title: "Agent Circle On-Chain Architecture: Solana and Anchor"
+sidebarTitle: "On-Chain"
+description: "Agent Circle's on-chain programs are written in Rust using the Anchor framework — the same toolchain as Jupiter, Mango, and MarginFi — with Squads multisig for all treasury operations."
+---
+
+Agent Circle's on-chain layer is built entirely on Solana, using the toolchain and primitives that the ecosystem's most established protocols rely on. The goal is zero custom financial infrastructure — every critical operation from fee collection to token streaming to swap execution runs on a primitive that has already been independently audited.
+
+## Rust + Anchor Programs
+
+The on-chain programs are written in Rust using the [Anchor framework](https://www.anchor-lang.com/). Anchor is the de facto standard for Solana program development — it's the same framework used by Jupiter, Mango, MarginFi, and most of the protocols that process the majority of Solana's on-chain volume.
+
+Choosing Anchor means:
+
+- **Best-documented toolchain.** Anchor has the most comprehensive documentation, tutorials, and community support of any Solana development framework. Contributors with prior Solana experience will be immediately productive.
+- **Most hireable stack.** When the project needs to bring in additional program developers, Anchor experience is the most common qualifier in the ecosystem.
+- **Structured accounts and error handling.** Anchor's account validation macros and error system reduce the surface area for common program vulnerabilities.
+
+The on-chain programs cover four core domains: agent deployment and registry, fee collection and routing, the staking vault, and per-agent sub-token issuance.
+
+## Squads Multisig
+
+All treasury operations and program upgrades are controlled by a [Squads](https://squads.so/) multisig — no single private key has unilateral control over funds or program authority from day one.
+
+This means:
+
+- **No single-key failure.** A compromised key cannot drain the treasury or push a malicious program upgrade unilaterally. Every fund movement and upgrade requires multiple signers to reach threshold.
+- **Publicly auditable.** Squads transactions are on-chain. Anyone can inspect the treasury, verify that threshold requirements were met, and see the full history of privileged operations — no trust required.
+- **Operational from launch.** Multisig control isn't a "coming later" commitment. It's the default from the point at which revenue-moving programs are deployed.
+
+## Helius RPC
+
+Agent Circle uses [Helius](https://www.helius.dev/) as its Solana RPC provider. Helius is purpose-built for Solana and exposes enhanced APIs that standard RPC nodes don't offer:
+
+- **DAS (Digital Asset Standard):** Efficient queries for NFTs, compressed NFTs, and token metadata — used for resolving agent token details and user portfolio reads.
+- **Webhooks:** On-chain event subscriptions that trigger the backend in real time when program state changes — agent deployments, fee events, staking activity.
+- **Priority fee estimation:** Helius exposes current network fee data, which the transaction layer uses to set appropriate priority fees and avoid failed transactions during congestion.
+
+<Tip>
+Helius webhooks are especially useful if you're building a real-time agent performance dashboard. Rather than polling the RPC on an interval, you can subscribe to specific program events and push updates to your UI the moment an on-chain action confirms.
+</Tip>
+
+## Streamflow
+
+Developer revenue-share payouts are handled by [Streamflow](https://streamflow.finance/), an audited token-streaming protocol on Solana. When fees are collected, payouts stream continuously to eligible addresses over time — no custom payment logic, no manual disbursement transactions.
+
+Using Streamflow means:
+
+- **No custom payout infrastructure.** The streaming mechanic is an existing, audited primitive. The protocol handles the on-chain accounting; the platform just initializes streams with the appropriate parameters.
+- **Continuous payouts.** Revenue share accrues in real time rather than in periodic batch settlements. Developers can withdraw earned amounts at any point.
+- **Audited security.** The streaming contracts have been independently audited. The platform doesn't need to audit custom payment logic because there isn't any.
+
+## Meteora DBC
+
+Per-agent sub-tokens are launched on [Meteora's Dynamic Bonding Curve (DBC)](https://meteora.ag/) infrastructure. Meteora DBC is the same bonding curve system underlying Bags and has been proven at scale across a high volume of token launches.
+
+Using Meteora DBC means the platform inherits a battle-tested liquidity mechanism rather than deploying a custom bonding curve — one of the highest-risk contract types to write from scratch.
+
+## Jupiter Swap API
+
+Buyback execution routes through the [Jupiter Swap API](https://station.jup.ag/docs/apis/swap-api). Jupiter aggregates liquidity across Solana DEXes and finds the best available route at execution time.
+
+- **Best-liquidity routing.** Jupiter splits orders across venues when needed to minimize slippage, which matters for buybacks executed against live market conditions.
+- **Publicly checkable.** Every buyback is an on-chain transaction. The routing, amounts, and output are visible to anyone inspecting the transaction on an explorer.
+
+## Security Model
+
+No revenue-moving program goes live without passing a scoped audit. Combined with Squads multisig and the absence of single-key control, the security model has three pillars:
+
+| Control | Mechanism |
+|---|---|
+| Program deployment & upgrades | Squads multisig — threshold required |
+| Treasury fund movements | Squads multisig — threshold required |
+| Revenue-moving programs | Scoped audit before mainnet deployment |
+| Individual key compromise | Non-fatal — no unilateral authority |

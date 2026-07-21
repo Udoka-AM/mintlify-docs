@@ -1,0 +1,57 @@
+---
+title: "Agent Circle Security: Audits, Multisig, and Transparency"
+sidebarTitle: "Security"
+description: "Agent Circle uses Squads multisig, scoped smart-contract audits, and no single-key control to protect platform funds and ensure publicly auditable operations."
+---
+
+Security on Agent Circle is not an afterthought added before launch — it is a structural property of how the platform is built from day one. Every privileged operation, from treasury movements to program upgrades, is controlled by a multisig with no single key capable of acting alone. Before any program that touches real funds goes live, it goes through a scoped smart-contract audit. And because everything runs on Solana, every security-relevant action is permanently visible on-chain for anyone to inspect.
+
+## Squads Multisig
+
+Agent Circle's treasury and all privileged on-chain operations are managed through **Squads**, the leading multisig protocol on Solana. A multisig requires multiple independent signers to approve any transaction before it executes — no single team member, no single device, and no single private key can unilaterally move funds or upgrade programs.
+
+This matters for several reasons. It eliminates the single point of failure that has caused catastrophic losses across the industry — compromised keys, insider actions, or social engineering attacks that target a single admin account cannot drain the treasury because no single account has that power. It also creates a transparent approval record: every Squads transaction shows which signers approved, when they approved, and what the transaction does. You can verify this at any time without asking anyone for permission.
+
+The multisig governs the staking vault, the buyback treasury, the Streamflow payout streams, and any program upgrade instructions. If it touches funds or changes protocol behavior, it goes through Squads.
+
+## Smart-Contract Audits
+
+Agent Circle commissions **scoped smart-contract audits** from independent security researchers before any revenue-moving program is deployed to mainnet. The word "scoped" is intentional — the audit covers the specific programs that handle real value: the staking vault, the buyback execution logic, the fee collection contracts, and the Streamflow integration. Each audit is funded properly and given the time required to do the work thoroughly.
+
+The audit process follows a standard flow: the auditor reviews the source code, identifies vulnerabilities, delivers a findings report, and the Agent Circle team remediates all critical and high-severity findings before deployment. The final audit report — including all findings and their resolutions — is published publicly before the audited programs go live. You do not need to take the team's word that the code is safe; you can read the same report the team used to verify it.
+
+No revenue-moving program deploys to mainnet without a completed, published audit. This is a firm commitment, not a best-effort goal.
+
+## No Single-Key Control
+
+From the first day Agent Circle operates on-chain, no privileged operation is controlled by a single private key. The multisig is live before any funds enter the system. This is the opposite of the common pattern where teams launch with a single admin key and "plan to add a multisig later" — by which time funds have already flowed through an unprotected control path.
+
+This commitment extends across the full lifecycle of the platform. When new programs are deployed, they are deployed under multisig authority. When parameters are updated, those updates require multisig approval. When the team rotates keys or adds signers, that change is itself a multisig transaction. The principle is simple: if it requires elevated privilege, it requires multiple humans to agree.
+
+## Helius: Reliable On-Chain Data
+
+Agent Circle uses **Helius** as its primary Solana RPC provider. Helius provides enhanced APIs including the **Digital Asset Standard (DAS) API** for reliable NFT and token metadata, webhook infrastructure for real-time on-chain event notifications, and priority fee estimation to ensure that time-sensitive transactions — like epoch-close buyback executions — land on-chain promptly even during network congestion.
+
+Reliable RPC infrastructure is a security concern, not just a performance one. Stale or incorrect on-chain data can cause protocol logic to act on bad inputs; Helius's enhanced APIs reduce that risk by providing verified, high-availability data with redundancy built in.
+
+## Streamflow: Audited Token Streaming
+
+Builder revenue-share payouts are executed through **Streamflow**, an audited token-streaming protocol on Solana. Streamflow has undergone independent security reviews, and using it means Agent Circle's payout logic inherits that audit work rather than relying on custom, unreviewed distribution code.
+
+Streamflow payouts are on-chain and verifiable: you can inspect the stream address, the scheduled release amounts, and the recipient wallet without any input from the Agent Circle team. If a payout is scheduled, you can confirm it exists on-chain before it vests. If it executes, the transaction is permanently recorded.
+
+## Public Auditability
+
+Every security-relevant action on Agent Circle produces an on-chain record. Treasury inflows, multisig approvals, program deployments, buyback swaps, and payout distributions are all visible to anyone with a block explorer. The Agent Circle app surfaces the treasury address and all relevant program addresses under **Settings → Treasury** so you always have a starting point for independent verification.
+
+The platform publishes the treasury address, the Squads wallet address, and all deployed program IDs in this documentation as soon as each goes live. You should not rely solely on the app UI to verify security-critical information — pull the raw on-chain data yourself.
+
+---
+
+<Note>
+  The full smart-contract audit report for all revenue-moving programs will be published publicly before Phase 2 launches. This includes the audit scope, all findings with severity classifications, the team's remediations, and the auditor's final sign-off. You will be able to read the same document the team used to verify the code is safe before a single dollar of live revenue flows through it.
+</Note>
+
+<Tip>
+  To verify Agent Circle's treasury activity yourself: navigate to the **Squads app** at squads.so and search for the Agent Circle treasury address (listed in **Settings → Treasury** in the platform). You will see the complete transaction history, including all inflows, outflows, multisig approvals, and pending proposals. Cross-reference any specific transaction using its signature on **Solscan** or **SolanaFM** for full instruction-level detail.
+</Tip>

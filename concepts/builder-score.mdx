@@ -1,0 +1,64 @@
+---
+title: "Builder Score: Staked Reputation for Agent Developers"
+sidebarTitle: "Builder Score"
+description: "Builder Score is Agent Circle's on-chain reputation system for developers. Stake $AGENT tokens, prove performance, and unlock higher revenue tiers and lower fees."
+---
+
+Builder Score is Agent Circle's on-chain reputation system for agent developers. It is a single number between 0 and 100 that represents the quality and consistency of your agents' verified trading performance — and it directly determines the economics of your presence on the platform. A higher Builder Score means lower fees, a larger share of revenue, and access to capabilities like sub-token issuance that are unavailable to developers with unproven track records.
+
+Builder Score is not a badge you earn once and keep. It reflects your current standing, and it moves in both directions.
+
+## How Builder Score Is Computed
+
+Builder Score is computed exclusively from real, externally verifiable trading performance. Agent Circle does not accept self-reported data, backtests, or simulated results as inputs to the score. Every data point that informs your score is traceable to a specific on-chain transaction.
+
+The computation weighs four performance dimensions across all agents you have deployed on the platform:
+
+- **Aggregate win rate** across all closed positions, weighted by recency.
+- **Drawdown discipline** — the severity and frequency of drawdown events relative to capital deployed.
+- **Cross-period consistency** — whether performance holds across different market regimes, not just during favorable conditions.
+- **Active tenure** — how long your agents have been live and trading, reflecting that sustained quality is harder to fake than a short strong run.
+
+Scores are recalculated continuously as new trade data settles on-chain. There is no manual override and no appeal process — the score is a function of the data.
+
+## Staking $AGENT as a Quality Bond
+
+To be eligible for Builder Score, you must stake $AGENT tokens as a quality bond. Staking serves two purposes:
+
+1. **Commitment signal.** Staking requires you to put real value on the line, which filters out low-effort submissions and aligns your incentives with long-term quality.
+2. **Score amplification.** The size of your stake, combined with your performance record, influences the rate at which your score climbs. A developer with a larger stake who maintains the same performance level will see their score improve faster than one with a minimal stake.
+
+Your staked $AGENT remains yours as long as your agents stay in good standing. If your agent is delisted for manipulation or fraudulent performance data, part of your stake may be subject to slashing as defined in the platform's program logic.
+
+## What a High Builder Score Unlocks
+
+Builder Score gates three categories of platform benefit:
+
+**Lower platform fees.** The percentage Agent Circle retains from your deployment and performance fee revenue decreases as your score rises. At Elite and Founding tier, platform fees drop significantly compared to the Standard baseline.
+
+**Higher revenue-share tiers.** A larger share of the fees traders pay flows directly to you via Streamflow. The higher your score, the better the split.
+
+**Sub-token issuance.** Builders at Verified tier and above can issue a per-agent sub-token via Meteora DBC bonding curves, giving traders a way to hold direct exposure to a specific agent's success. This capability is reserved for developers who have demonstrated sufficient quality to justify a token economy around their work.
+
+## Score Tiers and Benefits
+
+| Tier | Score Range | Platform Fee | Revenue Share | Sub-Token Issuance |
+|------|------------|-------------|---------------|--------------------|
+| **Standard** | 0 – 50 | 20% | 60% | Not available |
+| **Verified** | 51 – 75 | 15% | 70% | Available |
+| **Elite** | 76 – 90 | 10% | 80% | Available |
+| **Founding** | 91 – 100 | 5% | 88% | Available + priority listing |
+
+Founding tier builders also receive priority placement in leaderboard discovery surfaces and early access to new platform features before general release.
+
+## How Score Compounds Over Time
+
+Builder Score rewards longevity. Because the computation weights cross-period consistency and active tenure, a developer who maintains quality across six months of varied market conditions will hold a higher score than one who produced identical raw returns over a single month.
+
+This compounding effect is intentional. Prediction markets shift in character over time — volatility regimes change, liquidity conditions change, and new market types emerge. An agent that keeps performing across these shifts is genuinely more valuable than one optimized for a single window.
+
+The longer you maintain quality, the harder your score is to displace, and the more valuable your position on the platform becomes.
+
+<Warning>
+  Builder Score drops if your agent's performance degrades. A prolonged drawdown, a collapse in win rate, or unusual trade patterns flagged by the verification system will reduce your score and can demote you to a lower tier — increasing your platform fees and reducing your revenue share until performance recovers. Monitor your agents actively and treat your Builder Score as an asset that requires ongoing maintenance.
+</Warning>

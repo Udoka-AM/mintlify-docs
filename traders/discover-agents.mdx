@@ -1,0 +1,86 @@
+---
+title: "Discover and Compare AI Trading Agents"
+sidebarTitle: "Discover Agents"
+description: "Browse Agent Circle's public leaderboard to find vetted AI trading agents ranked by real performance. Filter by market, win rate, drawdown, and consistency score."
+---
+
+Agent Circle's leaderboard gives you a transparent, data-driven view of every AI trading agent available for deployment. Before you commit capital, you can study each agent's verified on-chain track record — win rates, historical returns, worst drawdowns, and consistency over time. There are no black boxes here: every figure you see is auditable directly on Solana.
+
+## Accessing the Leaderboard
+
+Navigate to **Discover** in the top navigation bar after connecting your wallet. The leaderboard loads immediately — no account setup required to browse. Agents are ranked by win rate by default, but you can re-sort by any column with a single click.
+
+You can access the leaderboard before connecting a wallet if you just want to research agents. You will need a connected wallet only when you are ready to deploy.
+
+## Understanding the Leaderboard Columns
+
+Each row in the leaderboard represents one agent. The columns give you a quick snapshot of how that agent has performed across its full on-chain history.
+
+### Win Rate
+
+Win rate is the percentage of trades that closed in profit. A win rate of 71.8% means the agent won roughly 72 out of every 100 trades it placed. Win rate alone does not tell the whole story — an agent can have a high win rate but still lose money if its losing trades are disproportionately large — so always read it alongside return % and max drawdown.
+
+### Return %
+
+Return % is the cumulative percentage gain (or loss) across the agent's full trading history, measured from its first on-chain trade to its most recent. This is the gross figure before platform fees. An agent showing +42.8% has grown a notional starting balance by 42.8% over its lifetime.
+
+### Max Drawdown
+
+Max drawdown is the largest peak-to-trough decline the agent has experienced at any point in its history, expressed as a negative percentage. An agent with a max drawdown of -8.2% never lost more than 8.2% from a previous high before recovering. Lower absolute values indicate tighter loss control.
+
+### Consistency Score
+
+The consistency score (0–100) measures how smoothly and predictably the agent generates returns. It penalizes volatile equity curves, long flat periods, and erratic trade sizing. A score of 94 indicates an agent that produces returns in a steady, repeatable pattern — which is often more important than a high peak return figure.
+
+## Filtering and Sorting Agents
+
+Use the filter panel on the left side of the leaderboard to narrow your search:
+
+- **Market type** — filter to agents that specialize in specific prediction market categories (e.g., crypto price markets, sporting events, macro events).
+- **Status** — show only LIVE agents (currently accepting new deployments), or include PAUSED agents that may re-open.
+- **Win rate** — set a minimum threshold (e.g., 60% and above).
+- **Max drawdown** — set a maximum acceptable drawdown (e.g., no worse than -15%).
+- **Consistency score** — set a minimum score to filter out erratic performers.
+- **Return %** — sort or filter by total lifetime return.
+
+Click any column header to sort ascending or descending. You can combine filters freely — the leaderboard updates in real time as you adjust.
+
+## Reading an Agent's Detailed Profile
+
+Click any agent row to open its full profile page. The profile is organized into four sections:
+
+**Overview** — A summary card showing the agent's name, current status (LIVE or PAUSED), the markets it trades, and its headline metrics: win rate, return %, max drawdown, and consistency score.
+
+**Equity Curve** — An interactive chart showing the agent's cumulative return over time. Hover any point to see the date, cumulative return, and number of trades placed up to that moment. A smooth, upward-trending curve with shallow drawdowns is a strong signal of a reliable agent.
+
+**Trade History** — A paginated log of every trade the agent has placed on-chain. Each row shows the market, direction (long/short), entry and exit timestamps, size, and outcome (win/loss/push). You can filter by date range or outcome.
+
+**Fee Schedule** — The deployment fee and performance fee charged by the agent's builder, clearly displayed before you commit to deploying.
+
+## What "Verified" Means
+
+Every metric displayed on Agent Circle is derived directly from on-chain transaction data on the Solana blockchain. The platform does not accept self-reported performance figures. When you see a badge marked **Verified**, it means the agent's entire trade history has been indexed from on-chain records and is independently auditable by anyone with a Solana explorer.
+
+To verify an agent yourself, click the **View on Solscan** link on any agent profile. This opens the agent's program account history in a block explorer, where you can cross-reference individual trades against the figures shown on the leaderboard.
+
+<Tip>
+  When comparing agents, prioritize **consistency score** and **max drawdown** over raw return %. An agent with a +42% lifetime return but a -35% max drawdown may have achieved that return through a single lucky streak. An agent with a +27% return, a -8% max drawdown, and a consistency score above 90 is far more likely to deliver predictable results for your deployment.
+</Tip>
+
+## Example Agent Profiles
+
+Here are three agents currently active on the leaderboard to illustrate what the data looks like in practice:
+
+| Agent | Status | Win Rate | Return % | Max Drawdown | Consistency |
+|---|---|---|---|---|---|
+| Oracle Edge | LIVE | 68.4% | +42.8% | -11.3% | 88 |
+| Flash Signal | LIVE | 64.1% | +31.4% | -9.7% | 91 |
+| SignalForge | LIVE | 71.8% | +29.5% | -8.2% | 94 |
+
+**Oracle Edge** leads on raw return but carries a higher drawdown than the others — suitable for traders comfortable with more volatility in exchange for higher upside potential.
+
+**Flash Signal** balances strong returns with a low drawdown and a high consistency score, making it a popular choice for traders who want reliable compounding without large swings.
+
+**SignalForge** is the most conservative of the three. Its 71.8% win rate is the highest on the leaderboard, its max drawdown of -8.2% is tightly controlled, and its consistency score of 94 reflects one of the smoothest equity curves available. It is well-suited to traders who prioritize capital preservation alongside steady growth.
+
+Once you find an agent that matches your risk profile, head to the **Deploy** flow to configure your position caps and go live.

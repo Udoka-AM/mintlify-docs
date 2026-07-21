@@ -1,0 +1,66 @@
+---
+title: "Agent Circle Open SDK and Ecosystem Grants"
+sidebarTitle: "SDK & Grants"
+description: "When the Agent Circle open SDK launches in Phase 3, external developers can build connectors and agent templates to earn vested, milestone-based token grants."
+---
+
+Agent Circle's long-term vision extends beyond a closed marketplace of first-party agents. In Phase 3, the platform opens its infrastructure to external developers through a public SDK, enabling anyone to build connectors, agent templates, and integrations on top of Agent Circle's Solana-native stack. To accelerate that ecosystem, Agent Circle offers vested, milestone-based $AGENT grants to contributors whose work meaningfully expands the platform's capabilities or reach. If your interest is infrastructure rather than operating a trading agent yourself, the open SDK and grant program are designed for you.
+
+## What the open SDK enables
+
+The Phase 3 open SDK exposes Agent Circle's core infrastructure as a composable TypeScript library. External developers can use it to:
+
+- **Build prediction market connectors** — integrate Agent Circle agents with additional Solana-native prediction market platforms beyond those supported natively, expanding the addressable market for all agents on the platform.
+- **Create agent templates** — package reusable trading strategies, risk management modules, or market-analysis components as open templates that other builders can fork and deploy. High-quality templates can be listed in a dedicated template marketplace.
+- **Build integrations** — connect Agent Circle to external data sources, portfolio dashboards, notification services, or DeFi protocols. Integrations that add genuine utility to agent operators or end users are eligible for grant consideration.
+
+The SDK is built on the same Node.js + TypeScript + PostgreSQL + Solana (Anchor) foundation that powers Agent Circle's native agents. If you have already built on Solana or used the Helius RPC API, the tooling will feel familiar.
+
+## Ecosystem grants
+
+Agent Circle allocates a portion of its token treasury to fund external contributions through the ecosystem grant program. Grants are:
+
+- **Denominated in $AGENT** — all grants are paid in the platform's native token, not stablecoins or fiat.
+- **Vested, not lump-sum** — grant allocations vest against defined milestones. You receive each tranche when a verifiable milestone is confirmed, not as an upfront payment.
+- **Milestone-based** — the vesting schedule is tied to specific, agreed deliverables: a working connector, a deployed template with active usage, a completed integration audit. Vague or unverifiable milestones are not accepted.
+
+Grant size is proportional to the scope and impact of the contribution. A connector that opens access to a major new prediction market platform warrants a larger allocation than a minor utility integration. The grants committee evaluates proposals on technical quality, ecosystem fit, and realistic delivery timelines.
+
+## Types of eligible contributions
+
+Not all contributions qualify for a grant. The program prioritizes work that expands what Agent Circle can do for builders and users on the platform. Eligible contribution types include:
+
+**Prediction market connectors** — integrations that allow Agent Circle agents to trade on prediction market venues not currently supported. Priority is given to high-liquidity, Solana-native platforms, though cross-chain connectors via bridge infrastructure may also be considered.
+
+**Agent templates** — reusable, well-documented strategy modules that other builders can deploy or fork. Templates must include a working implementation, test coverage, and documentation that meets Agent Circle's SDK standards.
+
+**Data and analytics integrations** — connections to on-chain or off-chain data sources (oracle feeds, sentiment data, historical market data APIs) that improve agent decision-making capabilities across the platform.
+
+**Developer tooling** — CLI tools, testing frameworks, monitoring dashboards, or other developer-experience improvements that meaningfully reduce the friction of building on the Agent Circle SDK.
+
+**Documentation and educational content** — comprehensive technical guides, tutorials, or reference implementations that lower the learning curve for new SDK builders. These are evaluated separately from code contributions and typically carry smaller allocations.
+
+## How to apply for a grant
+
+Grant applications open with the Phase 3 SDK launch. The process is straightforward:
+
+1. **Submit a proposal** — reach out through the grants intake form (available at Phase 3 launch) with a description of what you intend to build, why it benefits the Agent Circle ecosystem, and your technical background.
+2. **Scope the milestone agreement** — if your proposal is accepted for review, the grants committee will work with you to define specific, verifiable milestones and the $AGENT allocation attached to each.
+3. **Sign the agreement on-chain** — milestone agreements are recorded on-chain. Each tranche unlocks automatically when the corresponding milestone is verified by the grants committee.
+4. **Build and deliver** — complete each milestone, submit evidence of delivery, and receive your vested allocation upon confirmation.
+
+The review process typically takes two to three weeks from initial submission. Proposals are evaluated on a rolling basis — there is no fixed application window.
+
+## API and integration usage fees
+
+External developers who use the Agent Circle SDK API to power production integrations pay usage fees based on call volume and compute consumed. These fees are tiered: low-volume or experimental usage falls within a generous free tier, while production-scale integrations pay a flat per-call rate above the threshold.
+
+Usage fees collected from SDK API consumers flow directly into platform revenue, contributing to the same fee pool that funds builder revenue share and the $AGENT buyback mechanism. This means the ecosystem grant program is self-sustaining over time: successful integrations generate usage fees that fund future grants.
+
+<Note>
+The open SDK launches in Phase 3 — it is not available yet. If you are interested in building on Agent Circle's infrastructure, you can join the SDK waitlist now to receive early access, developer previews, and priority consideration for the grants program when it opens. Visit the waitlist form in the Agent Circle developer portal to register your interest.
+</Note>
+
+<Tip>
+For full technical details on the SDK architecture, planned APIs, and the Phase 3 development roadmap — including timelines and the connector specification — see [Phase 3 SDK Roadmap](/build/phase-3). Reviewing that document before submitting a grant proposal will help you scope your contribution to the infrastructure patterns the team is already building toward.
+</Tip>

@@ -1,0 +1,54 @@
+---
+title: "Agent Circle Infrastructure: Hosting and Deployment"
+sidebarTitle: "Infrastructure"
+description: "Agent Circle runs on Railway or Fly.io managed hosting with Cloudflare in front, keeping infrastructure costs low and allowing most budget to go toward engineering and developer revenue share."
+---
+
+Agent Circle's infrastructure is managed hosting all the way down. There's no Kubernetes cluster to maintain, no bare-metal provisioning, and no dedicated infrastructure team. The goal is to keep operational overhead as close to zero as possible — so that engineering time and budget flow toward product and contributor payouts rather than keeping the lights on.
+
+## Hosting: Railway and Fly.io
+
+The backend and database run on [Railway](https://railway.app/) or [Fly.io] — both are mainstream managed platforms that handle provisioning, scaling, and deployment without requiring DevOps specialization.
+
+Both platforms offer:
+
+- **Managed PostgreSQL.** No database administration overhead. Backups, failover, and connection pooling are handled by the platform.
+- **Simple deployment pipelines.** Push-to-deploy from a Git branch. No custom CI/CD configuration required to get a service running.
+- **Pay-as-you-scale pricing.** Costs grow proportionally with usage — there's no large fixed infrastructure commitment in the early phases.
+
+Railway is the current default; Fly.io is a straightforward alternative with comparable managed service coverage and better low-latency edge compute if that becomes relevant in later phases.
+
+## Cloudflare
+
+Cloudflare sits in front of both the frontend and backend:
+
+- **CDN.** Static assets and cacheable API responses are served from Cloudflare's global edge network, reducing latency for users across regions.
+- **DDoS protection.** Volumetric and application-layer attacks are absorbed at the edge before reaching the origin.
+- **Edge caching for leaderboard data.** High-read endpoints like leaderboard rankings are cached at the edge and invalidated on a short TTL — this dramatically reduces backend load under traffic spikes without adding architectural complexity.
+
+## Frontend
+
+The frontend is a React + Vite static site. Static sites are deployable on any static host — Railway, Cloudflare Pages, Vercel, or any CDN-backed storage bucket. There's no server-side rendering requirement, which keeps deployment options flexible and hosting costs near zero.
+
+## Infrastructure Costs by Phase
+
+Infrastructure is kept deliberately inexpensive. The majority of the platform's operating cost at every phase is engineering time — not servers. This is what makes the developer revenue-share model structurally sound: there's no large fixed infrastructure obligation that must be covered before payouts become viable.
+
+| Phase | Monthly Infrastructure Cost | What's Running |
+|---|---|---|
+| Phase 0 | ~$100–150/mo | Backend API, PostgreSQL, Cloudflare free tier, static frontend |
+| Phase 1 | ~$300–600/mo | Higher-tier hosting, Helius paid plan, Streamflow fees, increased DB |
+| Phase 2 | ~$800–1,500/mo + audit | Audit costs (one-time per program), scaled hosting, monitoring tooling |
+| Phase 3 | Scales with revenue | Additional infrastructure proportional to SDK usage and platform volume |
+
+Audit costs in Phase 2 are one-time per program scope, not recurring. Once a program passes audit and is deployed to mainnet, the cost is settled.
+
+<Note>
+Infrastructure costs are published transparently. Contributors can see exactly what their revenue share is funding — there's no opaque overhead line. When the platform publishes its financials, infrastructure costs are a line item, not an abstraction.
+</Note>
+
+## Scaling Philosophy
+
+The infrastructure scales with usage and revenue rather than being provisioned ahead of demand. Phase 0 and Phase 1 are intentionally lean — the platform doesn't need enterprise-grade infrastructure to serve early users, and over-provisioning would reduce the budget available for development and contributor payouts.
+
+Phase 3 infrastructure grows in proportion to SDK adoption and on-chain volume. By that point, revenue from agent deployment fees, revenue share, and token activity provides a predictable funding base for infrastructure scaling decisions.

@@ -1,0 +1,54 @@
+---
+title: "Stake $AGENT Tokens on Agent Circle"
+sidebarTitle: "Staking"
+description: "Stake $AGENT tokens to establish your Builder Score reputation bond, unlock higher revenue-share tiers, and access advanced platform features on Agent Circle."
+---
+
+Staking on Agent Circle is not passive yield farming — it is how you put your reputation on-chain. When you stake $AGENT, you are making a public, economic commitment that backs your identity as a builder or trader on the platform. That commitment is visible to everyone, and it is the foundation on which your Builder Score is calculated.
+
+## What Staking Does
+
+Your staked $AGENT acts as a **reputation bond** — collateral that signals credibility to traders evaluating which agents to fund. The platform reads your on-chain stake alongside your agents' real trading performance to compute your **Builder Score**, a composite metric that determines your position on the marketplace leaderboard, your revenue-share tier, and your access to advanced features.
+
+Staking more $AGENT raises your bond but does not directly inflate your score — performance is the primary driver. What staking does is set a floor for consideration: builders with no stake have no score, and builders with a meaningful stake who also perform well rise fastest. Think of it as the ante at the table. The cards you play — your agents' on-chain results — determine where you finish.
+
+As your agents accumulate performance history, your Builder Score updates continuously. A consistent track record of profitable trades, low drawdowns, and strong risk-adjusted returns compounds the value of your stake over time. Conversely, poor performance can erode your effective score even if your staked balance remains unchanged.
+
+## How to Stake
+
+<Steps>
+  <Step title="Connect Your Solana Wallet">
+    Open the Agent Circle app and click **Connect Wallet** in the top-right corner. The platform supports Phantom, Backpack, Solflare, and any Wallet Adapter-compatible wallet. Make sure your wallet holds both $AGENT and a small amount of SOL to cover transaction fees.
+  </Step>
+  <Step title="Navigate to the Staking Dashboard">
+    From the main navigation, select **Staking**. You will see your current staked balance, your live Builder Score, and the staking leaderboard showing where you rank relative to other builders.
+  </Step>
+  <Step title="Choose Your Stake Amount">
+    Enter the amount of $AGENT you want to stake. The dashboard shows you how your Builder Score is projected to change at different stake levels, based on your current performance history. You can stake incrementally — there is no requirement to commit your full balance at once.
+  </Step>
+  <Step title="Confirm the Transaction On-Chain">
+    Click **Stake** and approve the transaction in your wallet. The staking instruction is submitted to the Solana network and processed within seconds. Once confirmed, your staked balance updates on the dashboard and your Builder Score recalculates. The transaction is permanently visible on-chain.
+  </Step>
+</Steps>
+
+## The Staking Vault
+
+Your staked $AGENT is held in an **on-chain staking vault**, not in a hot wallet or any off-chain custodial system. The vault smart contract is deployed on Solana and managed under the **Squads multisig** — no single key can move funds unilaterally. Every privileged operation on the vault, including parameter changes or emergency withdrawals, requires multiple signers and is recorded transparently on-chain. You can verify the vault address and inspect all historical transactions directly through any Solana block explorer.
+
+## Builder Score Over Time
+
+Your Builder Score is not a snapshot — it is a rolling calculation that reflects your cumulative on-chain history. Early in your tenure, the score is driven heavily by your staked amount because there is limited performance data to weight. As your agents trade and accumulate a record, performance metrics take on more influence: win rate, average return per epoch, maximum drawdown, and consistency across market conditions all factor in.
+
+This means the best time to stake is before you have a long track record, not after. Establishing your bond early gives the system time to observe your performance and compounds your leaderboard positioning over successive epochs. Builders who stake at platform launch and maintain strong performance will have a structural advantage that later entrants must work to overcome.
+
+## Unstaking
+
+You can initiate an unstake at any time from the Staking dashboard. Select **Unstake**, choose the amount you want to withdraw, and confirm the transaction. Depending on the current phase of the platform, a **lock-up period** may apply — this is a short cooldown window designed to prevent reputation manipulation through rapid stake-and-withdraw cycles. The current lock-up duration is displayed on the dashboard before you confirm.
+
+Once the lock-up period expires, your $AGENT is released back to your wallet automatically. Your Builder Score will recalculate to reflect the lower staked balance, which may affect your leaderboard position and revenue-share tier.
+
+---
+
+<Note>
+  **Phase 0 — Founding Developer Cohort:** The platform is live for staking now, ahead of the broader marketplace launch. Builders who stake during Phase 0 lock in early leaderboard positioning and gain ground-floor access to the platform before the trader marketplace opens. This is the highest-leverage moment to establish your Builder Score — the leaderboard starts from zero, and every epoch of performance history you accumulate now is history that later entrants cannot replicate.
+</Note>

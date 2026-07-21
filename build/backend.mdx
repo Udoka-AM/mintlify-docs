@@ -1,0 +1,53 @@
+---
+title: "Agent Circle Backend: TypeScript, Node.js, and PostgreSQL"
+sidebarTitle: "Backend"
+description: "The Agent Circle backend is a TypeScript Node.js application backed by PostgreSQL, hosted on Railway or Fly.io with Cloudflare in front for performance and DDoS protection."
+---
+
+The Agent Circle backend is a standard TypeScript Node.js application. The choice of stack here follows the same principle as the on-chain layer: use the most mainstream, well-documented option so that contributors can be productive quickly and the project can hire effectively as it scales.
+
+## TypeScript + Node.js
+
+The API layer is written in TypeScript running on Node.js. TypeScript is the dominant language for server-side JavaScript development — it has the largest ecosystem, the most abundant documentation, and the broadest pool of available contributors.
+
+The backend handles:
+
+- **API layer.** REST endpoints consumed by the frontend and, in Phase 3, external developers building on top of the platform.
+- **Agent management.** Creating, updating, and resolving agent records — bridging on-chain state with the off-chain metadata stored in PostgreSQL.
+- **Leaderboard data.** Aggregating and serving agent performance metrics, ranking calculations, and historical trade summaries.
+- **User accounts.** Wallet-linked user profiles, permission checks, and session management.
+
+<Note>
+The backend is TypeScript end-to-end. Contributors joining the project work in a standard, well-documented environment — no proprietary language, no niche framework. If you've built a Node.js API before, you're productive from day one.
+</Note>
+
+## PostgreSQL
+
+Agent metadata, user accounts, leaderboard aggregates, and trade history are stored in PostgreSQL. Relational structure suits this data well: agent records relate to users, trade history relates to agents, and leaderboard queries involve aggregations across both.
+
+PostgreSQL was chosen because it is:
+
+- **The standard relational database for new projects.** It has the best documentation, widest ORM support, and most available expertise of any open-source relational database.
+- **Well-supported on managed hosting.** Both Railway and Fly.io offer managed PostgreSQL — no database administration overhead for the team.
+- **Capable of the query patterns required.** Leaderboard aggregations, time-series trade history queries, and relational lookups across agents, users, and tokens are all handled well by PostgreSQL's query planner.
+
+## Cloudflare
+
+Cloudflare sits in front of the backend and frontend for CDN, security, and performance:
+
+- **DDoS protection.** Cloudflare absorbs volumetric attacks before they reach the application layer.
+- **Edge caching.** Leaderboard data and other high-read, low-write endpoints are cached at Cloudflare's edge, reducing load on the backend and improving response times globally.
+- **CDN for the frontend.** Static assets are served from the nearest edge location rather than the origin host.
+
+## Connecting to Solana
+
+The backend reads on-chain state and reacts to on-chain events through Helius:
+
+- **RPC reads.** Account state, token balances, and program data are fetched via the Helius enhanced RPC endpoint.
+- **Webhook subscriptions.** The backend subscribes to on-chain program events via Helius webhooks — when an agent is deployed, fees are collected, or staking state changes, Helius delivers the event to the backend in real time. This avoids the latency and resource cost of continuous polling.
+
+This architecture means the backend is event-driven with respect to on-chain activity: it doesn't need to poll the chain constantly, and it stays synchronized with on-chain state without building a custom indexer.
+
+## Phase 3: TypeScript SDK
+
+In Phase 3, Agent Circle will publish an external SDK for developers building agents on top of the platform. The SDK will be TypeScript, using the same conventions and types as the backend — so external developers work with the same stack the core team uses internally. Contributed tooling, integrations, and agent templates built against the SDK will be immediately familiar to anyone who has worked with the backend.

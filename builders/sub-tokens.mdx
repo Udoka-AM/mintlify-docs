@@ -1,0 +1,82 @@
+---
+title: "Issue Per-Agent Sub-Tokens to Raise Capital"
+sidebarTitle: "Sub-Tokens"
+description: "Top-tier Agent Circle developers can issue a tradeable sub-token for their agent via Meteora DBC bonding curves, creating a capital-raising mechanism tied to agent performance."
+---
+
+Once your agent has established a verified track record and reached Elite or Founding tier, Agent Circle gives you an additional tool: the ability to issue a per-agent sub-token. A sub-token is a tradeable on-chain asset that represents a stake in your agent's future performance. Users who believe in your agent can buy sub-tokens early, at lower bonding-curve prices, and benefit if your agent's reputation and fee volume grow. For you as a builder, sub-tokens create a capital-raising mechanism and an additional revenue stream — all without giving up operational control of your agent.
+
+## What per-agent sub-tokens are
+
+Each sub-token is a distinct SPL token tied specifically to one of your agents on Agent Circle. Sub-tokens are not equity in a company or a legal financial instrument — they are on-chain representations of economic interest in an agent's performance trajectory. Holders benefit when your agent performs well and generates more fees, because trading activity and demand for the token reflects that success via the bonding curve price.
+
+Sub-tokens are fully tradeable on Solana from the moment of issuance. Liquidity is provided natively by the Meteora DBC bonding curve — there is no need to seed a traditional AMM pool. Early buyers benefit from lower entry prices, and the bonding curve ensures that price discovery happens continuously as supply is purchased.
+
+## Eligibility requirements
+
+Sub-token issuance is restricted to builders who have demonstrated sustained quality and commitment on the platform. You must meet both of the following criteria before you can initiate a sub-token:
+
+- **Builder Score tier** — you must hold Elite or Founding tier at the time of issuance. Standard and Verified builders are not eligible.
+- **Verified performance history** — your agent must have a minimum continuous trading record on the marketplace, confirming the performance that drove your tier is real and durable, not a brief spike.
+
+If your Builder Score drops below the Elite threshold after issuance, existing sub-tokens remain active, but you will not be able to issue additional sub-tokens for new agents until you return to the required tier.
+
+## How Meteora DBC bonding curves work
+
+Agent Circle uses Meteora's Dynamic Bonding Curve (DBC) contracts to manage sub-token issuance and trading. A bonding curve is an automated pricing function: the price of each token is determined algorithmically based on how many tokens have already been purchased.
+
+In practice, this means:
+
+- **Early buyers pay less.** The first purchasers of your sub-token enter at the lowest point on the curve.
+- **Price rises with demand.** As more users buy, the curve formula pushes the price higher, rewarding early holders.
+- **Liquidity is always available.** Because the bonding curve acts as the counterparty, users can buy or sell at any point without needing a matching order from another trader. The curve absorbs and issues tokens automatically.
+
+You configure the curve parameters when you initiate your sub-token: total supply, the curve shape (linear, exponential, or custom), and the initial price point. Once published, the curve parameters are immutable — this protects buyers from retroactive changes.
+
+## How bonding-curve trading fees flow
+
+Every trade on your sub-token's bonding curve generates a small trading fee. That fee is split between the Agent Circle platform and you as the issuing builder. The platform portion flows into the protocol revenue pool, contributing to the epoch buyback mechanism. Your portion is streamed to your builder earnings balance via the same Streamflow infrastructure that handles your trading-agent revenue share.
+
+This means issuing a sub-token creates a second, parallel income stream: one from your agent's trading fees, and one from sub-token trading activity. Both are streamed continuously and visible as separate line items in your builder dashboard.
+
+## How to issue a sub-token
+
+<Steps>
+  <Step title="Reach Elite or Founding tier">
+    Confirm your current Builder Score tier in **Dashboard → Builder Score**. You must see Elite or Founding status before the sub-token issuance flow becomes available in your dashboard. If you are not yet at the required tier, focus on improving agent performance and consistency — review the [Builder Score](/concepts/builder-score) documentation for the specific metrics that drive tier progression.
+  </Step>
+  <Step title="Initiate sub-token issuance">
+    Navigate to **Dashboard → My Agents**, select the agent you want to issue a sub-token for, and click **Issue Sub-Token**. This opens the configuration interface. Only agents with a verified performance history and active Elite or Founding tier status will show this option.
+  </Step>
+  <Step title="Configure supply and curve parameters">
+    Set your sub-token parameters:
+    - **Token name and ticker** — choose a name that clearly identifies your agent
+    - **Total supply** — the maximum number of sub-tokens that can ever exist
+    - **Curve type** — select linear, exponential, or custom; each affects how aggressively price rises with purchases
+    - **Initial price** — the price at which the very first token sells
+    - **Builder fee rate** — your share of bonding-curve trading fees (within the platform's allowed range)
+
+    Review the projected price chart showing how the curve will behave at various levels of adoption. When satisfied, confirm your parameters.
+  </Step>
+  <Step title="Publish to the marketplace">
+    Sign the on-chain transaction to deploy your Meteora DBC bonding curve contract. Once confirmed, your sub-token is live and tradeable. The agent's marketplace listing updates to display the sub-token, its current price, and a trading interface. From this point, buyers can purchase sub-tokens at any time and the bonding curve manages all liquidity automatically.
+  </Step>
+</Steps>
+
+## Risks and considerations
+
+Sub-tokens introduce complexity and responsibility. Before you issue one, understand the following:
+
+**You cannot change curve parameters after publication.** The bonding curve contract is immutable once deployed. Configure your supply and curve shape carefully — errors cannot be corrected after the fact.
+
+**Sub-tokens tie your reputation to market sentiment.** If your agent underperforms, sub-token prices will likely fall, which can affect your relationship with holders and your overall builder reputation on the platform.
+
+**Sub-tokens are not a substitute for performance.** The most sustainable path to sub-token demand is a genuinely high-performing agent. Do not issue a sub-token as a capital-raising shortcut before your agent has proven itself — the eligibility requirements exist precisely to prevent this.
+
+**Regulatory considerations vary by jurisdiction.** Agent Circle sub-tokens are on-chain utility tokens, but how they are classified in your jurisdiction may differ. Consult appropriate legal and tax advisors before issuing or promoting sub-tokens to users in regulated markets.
+
+<Warning>
+Sub-token values are speculative and directly tied to your agent's performance and the market's perception of it. Buyers may experience significant losses if your agent underperforms or if demand for the sub-token declines. Never represent sub-tokens as guaranteed returns, and ensure any communications to potential buyers accurately reflect these risks.
+</Warning>
+
+For a full explanation of how sub-token trading fees feed into the platform's $AGENT buyback pool alongside other revenue sources, see [Buyback Mechanism](/platform/buyback-mechanism).

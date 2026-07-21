@@ -1,0 +1,85 @@
+---
+title: "Set Risk Controls for Your Deployed Agents"
+sidebarTitle: "Risk Controls"
+description: "Configure position caps, drawdown limits, and auto-pause rules to manage risk for each AI trading agent deployed on your Agent Circle account."
+---
+
+Risk controls are the guardrails you set on each agent deployment to define how much capital the agent can put to work on any single trade and how much cumulative loss you are willing to tolerate before the agent stops automatically. These parameters are encoded on-chain at the moment you deploy, so they cannot be overridden — by the agent, by the platform, or by anyone else. Getting them right is the most important step you take before going live.
+
+## Available Risk Controls
+
+### Position Cap
+
+The position cap limits the maximum size of any single trade the agent places on your behalf. You can express it in one of two ways:
+
+- **Percentage of deployed balance** — for example, 10% means the agent can never open a position worth more than 10% of your current deployed balance. This is the recommended approach because the cap scales automatically as your balance grows or shrinks.
+- **Absolute USDC amount** — for example, $500 means no single position can exceed $500, regardless of your overall balance. Use this if you want a hard dollar ceiling that does not change with performance.
+
+A lower position cap distributes risk across more trades and reduces the impact of any single loss. Most experienced traders on Agent Circle set position caps between 5% and 15% of their deployed balance.
+
+### Max Drawdown Limit
+
+The max drawdown limit defines the cumulative loss threshold at which the agent automatically pauses. It is expressed as a negative percentage of your peak deployed balance.
+
+For example, if you set a max drawdown limit of -15%, the agent pauses the moment your balance has declined 15% from its highest recorded point during the deployment. It does not matter whether that loss occurred over one trade or one hundred — once the threshold is crossed, the agent stops placing new trades.
+
+This control protects you from scenarios where market conditions turn unfavorable and the agent continues trading into a deepening loss. It also gives you a natural checkpoint to review the agent's behavior before deciding whether to resume.
+
+### Auto-Pause
+
+Auto-pause is not a separate setting you configure — it is the enforcement mechanism that activates automatically when your max drawdown limit is breached. When triggered, it:
+
+1. Immediately prevents the agent from opening any new positions.
+2. Allows any positions already open to close according to the agent's normal exit logic.
+3. Sends you a dashboard notification and (if enabled) an email or in-app alert.
+4. Locks the deployment in a **Paused** state until you take manual action.
+
+Auto-pause cannot be disabled. It is a non-negotiable safety mechanism applied to every deployment.
+
+## Configuring Controls at Deployment Time
+
+Risk controls are set in the deployment configuration panel, which appears after you click **Deploy This Agent** on any agent profile. The panel presents two input fields:
+
+- **Position cap** — enter a percentage or toggle to absolute USDC and enter an amount.
+- **Max drawdown limit** — enter a percentage (e.g., 15 for -15%).
+
+Both fields must be filled before you can proceed to fee review. The platform enforces minimum values — position caps cannot exceed 50% and drawdown limits cannot be set looser than -50% — to protect against misconfiguration.
+
+Your settings are displayed in a summary card at the bottom of the panel before you sign the deployment transaction. Review them carefully; once the transaction is confirmed, the values are written on-chain.
+
+## Modifying Controls on an Active Deployment
+
+You can update risk controls on a running deployment without stopping it. Open the deployment card on your dashboard and click **Edit Risk Controls**. Adjust your position cap or drawdown limit and click **Save Changes**. Your wallet will prompt you to sign a transaction that updates the on-chain parameters.
+
+The new values take effect immediately after the update transaction confirms. Any positions that are already open are not affected retroactively — the new limits apply to trades placed after the update.
+
+Note that tightening your drawdown limit while the agent is in a temporary drawdown may trigger an immediate auto-pause if the current drawdown already exceeds the new threshold.
+
+## What Happens When a Limit Is Breached
+
+When your max drawdown limit is breached, the sequence of events is as follows:
+
+1. **Auto-pause activates** — the agent stops opening new positions instantly.
+2. **Open positions are managed to close** — the agent does not abandon in-flight trades. It applies its standard exit logic to close any open positions, which may take minutes to hours depending on market liquidity.
+3. **You receive a notification** — a banner appears on your dashboard and, if you have alerts configured, you receive an email or mobile push notification. The notification includes the current drawdown percentage and the time the limit was breached.
+4. **The deployment enters Paused state** — your balance is preserved in its current form until you decide how to proceed.
+
+You have three options at this point: resume the deployment with your existing risk controls, modify your risk controls and then resume, or stop the deployment entirely and withdraw your balance.
+
+## Resuming a Paused Agent
+
+To resume an auto-paused agent, open the deployment card on your dashboard. You will see a **Paused — Drawdown Limit Reached** status badge and a **Review & Resume** button.
+
+Clicking **Review & Resume** opens a panel showing the current drawdown, the trades that led to the pause, and your existing risk control settings. You can choose to resume with the current settings or adjust your drawdown limit or position cap before resuming.
+
+Once you are satisfied with the configuration, click **Resume Deployment** and sign the transaction in your wallet. The agent begins placing new trades as soon as the transaction confirms.
+
+Before resuming, take time to assess whether the drawdown reflects a temporary market condition or a structural change in how the agent is performing. Reviewing the trade history for the period leading up to the pause will help you make that judgment.
+
+<Warning>
+  Setting your max drawdown limit or position cap too tight can cause the agent to pause frequently on normal market volatility, disrupting the strategy and potentially locking in losses at the worst moments. Before choosing a drawdown limit, review the agent's historical max drawdown on its profile page and set your limit at least a few percentage points wider than that figure. For example, if an agent's historical max drawdown is -8.2%, setting your limit at -9% leaves almost no room for normal variance. A limit of -12% to -15% gives the strategy space to operate while still protecting you from severe scenarios.
+</Warning>
+
+<Tip>
+  Start with a conservative position cap (5–10% of your deployed balance) and a drawdown limit 1.5–2× wider than the agent's historical max drawdown. After two to four weeks of live deployment, review the agent's actual drawdown behavior in your dashboard and adjust your controls to match. Agents often behave differently across market regimes, so treat your initial settings as a starting point rather than a permanent configuration.
+</Tip>

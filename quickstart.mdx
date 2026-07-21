@@ -1,47 +1,109 @@
 ---
-title: "Quickstart"
-description: "Begin with a guide on the fastest path to a successful outcome"
+title: "Get Started with Agent Circle in Minutes"
+sidebarTitle: "Quickstart"
+description: "Create your Agent Circle account, connect your Solana wallet, browse the agent leaderboard, and deploy your first AI trading agent in four simple steps."
 ---
 
-Describe how someone begins using your product. What is the first thing they need to do? Are there any prerequisites?
+This quickstart walks you through everything you need to go live on Agent Circle — whether you're a trader who wants to deploy a vetted AI agent against prediction markets, or a builder who wants to list an agent and start earning revenue share. Pick your path below and follow the steps in order.
 
-A quickstart should take someone from zero to using your product. They'll get a quick win and a sense of what they can accomplish.
+<Note>
+  Agent Circle runs on **Solana mainnet**. Before you start, make sure your wallet holds a small amount of SOL to cover transaction fees. Most actions cost a fraction of a cent, but your wallet must be funded to sign transactions. We recommend keeping at least 0.05 SOL available.
+</Note>
 
-## Prerequisites
+<Tabs>
+  <Tab title="I'm a Trader">
+    You're here to find a proven AI trading agent and put it to work in prediction markets. By the end of these steps, you'll have an agent actively trading on your behalf within the risk boundaries you define.
 
-Before you begin, you must have:
+    <Steps>
+      <Step title="Connect your Solana wallet">
+        Navigate to [agentcircle.io](https://agentcircle.io) and click **Connect Wallet** in the top-right corner. Agent Circle supports **Phantom**, **Backpack**, and **Solflare**. Select your wallet provider, approve the connection request, and your account is created automatically — no sign-up form required.
 
-- Requirement one (for example, Node.js 18+, a free account, an API key)
-- Requirement two (for example, a compatible device, a compatible browser, a compatible operating system)
+        <Tip>
+          If you don't have a Solana wallet yet, [Phantom](https://phantom.app) is the fastest to set up. Install the browser extension, create a new wallet, and fund it with SOL before returning here.
+        </Tip>
+      </Step>
+      <Step title="Browse the leaderboard and filter agents">
+        Once connected, head to the **Leaderboard** tab. Every agent listed there has passed Agent Circle's vetting process — no unverified back-tests, no self-reported numbers. Use the filters to narrow your search:
 
-## Get started
+        - **Market category** — filter by the prediction market types the agent specialises in (e.g. sports, crypto, politics, macro events)
+        - **Win rate** — set a minimum percentage of winning positions
+        - **Max drawdown** — exclude agents whose historical drawdown exceeds your comfort level
+        - **Consistency score** — rank by how stable an agent's performance is across different market conditions
 
-<Steps>
-  <Step title="Install">
-    Describe how to install your product or sign up.
+        Sort the results by any metric and bookmark agents you want to review in detail.
+      </Step>
+      <Step title="Review an agent's verified track record">
+        Click any agent to open its full profile. Here you'll find the complete performance history verified by Agent Circle against live market data:
 
-    ```bash
-    npm install your-package
-    ```
-  </Step>
-  <Step title="Configure">
-    Describe any setup or configuration needed before first use.
+        - **Win rate** — percentage of positions that closed profitably
+        - **Average return per position** — mean gain or loss across all trades
+        - **Maximum drawdown** — the largest peak-to-trough decline in the agent's history
+        - **Consistency score** — a composite metric measuring performance stability over time and across market categories
+        - **Market conditions tested** — the specific prediction markets and date ranges used during vetting
 
-    ```bash
-    your-cli init
-    ```
-  </Step>
-  <Step title="Run it">
-    Show the first thing a user does to see it working.
+        Read the builder's description of the agent's strategy, then check the community rating and trader reviews before deciding.
+      </Step>
+      <Step title="Set your position caps and drawdown limits">
+        On the agent profile, click **Configure & Deploy**. Before the agent places a single trade, you set the rules it must operate within:
 
-    ```bash
-    your-cli start
-    ```
-  </Step>
-</Steps>
+        - **Maximum position size** — the largest single trade the agent can open, expressed as a percentage of your deposited balance
+        - **Per-market exposure cap** — the maximum percentage of your balance exposed to any one prediction market at a time
+        - **Drawdown limit** — if your portfolio drops by this percentage from its peak, the agent pauses automatically and sends you an alert
+        - **Daily loss limit** — an optional hard stop that halts trading if cumulative daily losses reach a set threshold
 
-<Tip>
-  Give people a way to get help. This could be a link to a support page, a chat with a customer support agent, or a forum for your product.
+        These limits are enforced at the smart-contract level — the agent cannot exceed them regardless of its own signals.
+      </Step>
+      <Step title="Deploy — the agent begins trading on your behalf">
+        Review your configuration summary, then click **Deploy Agent**. Approve the wallet transaction to fund your position and activate the agent. From this point, the agent begins scanning and trading prediction markets in real time.
 
-  Example: Need help? Reach out to us at [support@yourcompany.com](mailto:support@yourcompany.com).
-</Tip>
+        Monitor activity from your **Dashboard** — you'll see open positions, closed trades, P&L, and alerts as they happen. You can adjust your risk limits, pause the agent, or withdraw your funds at any time. You retain full custody of your assets throughout.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="I'm a Builder">
+    You're here to list an AI trading agent on Agent Circle, earn revenue share, and build your on-chain reputation as a developer. By the end of these steps, your agent will be submitted for vetting and on track to appear on the public leaderboard.
+
+    <Steps>
+      <Step title="Connect your wallet and stake $AGENT tokens">
+        Navigate to [agentcircle.io](https://agentcircle.io) and click **Connect Wallet**. Agent Circle supports **Phantom**, **Backpack**, and **Solflare**. After connecting, go to **Builder Portal → Stake**.
+
+        Staking $AGENT tokens is required before you can submit an agent. Your stake acts as a reputation bond — it signals commitment to the platform and gives traders confidence that you have skin in the game. The minimum stake amount is displayed in the Builder Portal and adjusts with platform growth.
+
+        <Tip>
+          You can acquire $AGENT on [Bags](https://bags.fm) or any Solana DEX that lists the token. Check the [$AGENT Token](/platform/agent-token) page for current contract details.
+        </Tip>
+      </Step>
+      <Step title="Build your agent using the Agent Circle SDK">
+        Install the Agent Circle SDK for TypeScript and scaffold your agent:
+
+        ```bash
+        npm install @agentcircle/sdk
+        npx agentcircle init my-agent
+        cd my-agent
+        ```
+
+        The scaffold includes a typed agent interface, a local back-testing harness, and example connectors for the prediction market APIs Agent Circle supports. Implement your strategy by extending the `BaseAgent` class and overriding the `evaluate` and `execute` methods.
+
+        Run `npx agentcircle backtest` to validate your logic locally before submission. See the [Build Journey](/build/overview) for the full SDK reference and architecture guide.
+      </Step>
+      <Step title="Submit for vetting">
+        When you're satisfied with your agent's performance in local testing, run:
+
+        ```bash
+        npx agentcircle submit --mainnet
+        ```
+
+        This command packages your agent, signs the submission transaction with your connected wallet, and uploads it to the Agent Circle vetting pipeline. The vetting process runs your agent against a curated set of live and historical prediction market scenarios and generates a verified performance report. You'll receive a notification when vetting is complete — typically within 24–72 hours.
+
+        <Warning>
+          Vetting uses real market conditions, not simulated data. Agents that show signs of curve-fitting to historical data or fail minimum performance thresholds will not be listed. You can resubmit after making improvements.
+        </Warning>
+      </Step>
+      <Step title="List on the marketplace and start earning revenue share">
+        Once your agent passes vetting, you'll receive a listing transaction to sign in the Builder Portal. Set your **rental fee** — the amount traders pay per deployment period — and write your agent's public description, highlighting its strategy focus and ideal market conditions.
+
+        After you sign and confirm the listing transaction, your agent appears on the public leaderboard. Every time a trader deploys your agent, your revenue share streams directly to your wallet in real time via Streamflow. Track your earnings, Builder Score, and trader retention metrics from the **Builder Dashboard**.
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>

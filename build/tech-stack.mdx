@@ -1,0 +1,50 @@
+---
+title: "Agent Circle Tech Stack: Full Overview"
+sidebarTitle: "Tech Stack"
+description: "Agent Circle is built on Solana with Rust/Anchor on-chain programs, a TypeScript/Node.js backend, and proven Solana-native primitives for payments, tokens, and trading."
+---
+
+Agent Circle is built on a deliberately mainstream stack. Every layer relies on existing, audited primitives rather than custom-built infrastructure — which keeps the codebase small, the security surface well-understood, and the platform easy for new contributors to ramp into.
+
+## Full Stack Overview
+
+| Layer | Choice | Notes |
+|---|---|---|
+| On-chain programs | Rust + Anchor | Industry-standard; same framework as Jupiter, Mango, MarginFi |
+| Treasury & privileged operations | Squads multisig | No single key failure; publicly auditable on-chain |
+| RPC/chain infrastructure | Helius (Solana-native) | Enhanced APIs: DAS, webhooks, priority fees |
+| Revenue-share payouts | Streamflow (token streaming protocol) | Audited Solana primitive |
+| Sub-token bonding curves | Meteora DBC | Same infrastructure underlying Bags — proven at scale |
+| Buyback execution | Jupiter Swap API | Best-liquidity routing; publicly checkable |
+| Backend | TypeScript (Node.js) + PostgreSQL | Standard stack; Railway/Fly.io hosting; Cloudflare in front |
+| Security | Scoped audits + multisig + no single-key control | Passes audit before revenue-moving programs go live |
+
+## Why This Stack
+
+The guiding principle is simple: use the most mainstream, well-documented option at every layer. That means:
+
+- **Easy to hire around.** Rust/Anchor, TypeScript, and PostgreSQL are the dominant choices in their respective domains. Contributors joining the project don't need to learn proprietary tooling.
+- **Audited primitives, not custom logic.** Streamflow handles revenue-share streaming. Jupiter handles swap routing. Meteora handles bonding curves. Squads handles multisig. None of this is built from scratch — every critical financial operation runs on a primitive that has already been audited and battle-tested in production.
+- **Publicly verifiable.** Squads treasury actions, Jupiter buybacks, and Streamflow payouts are all on-chain and checkable by anyone. There is no opaque backend moving funds.
+- **Low operational overhead.** The infrastructure layer is managed hosting (Railway or Fly.io) with Cloudflare in front — no dedicated DevOps headcount required to keep the lights on.
+
+<Note>
+The stack is deliberately inexpensive to run. Infrastructure costs are low — most of the budget is engineering time. That's intentional: it's what makes generous developer revenue-share terms structurally viable rather than aspirational.
+</Note>
+
+## Explore the Stack in Detail
+
+<CardGroup cols={2}>
+  <Card title="On-Chain Architecture" icon="link-simple" href="/build/on-chain">
+    Rust/Anchor programs, Squads multisig, Helius RPC, Streamflow, Meteora DBC, and Jupiter Swap API — every on-chain layer explained.
+  </Card>
+  <Card title="Backend" icon="server" href="/build/backend">
+    TypeScript, Node.js, PostgreSQL, and how the backend connects to Solana via Helius.
+  </Card>
+  <Card title="Infrastructure" icon="cloud" href="/build/infrastructure">
+    Railway/Fly.io hosting, Cloudflare, and a transparent cost breakdown by phase.
+  </Card>
+  <Card title="Build Journey" icon="map" href="/build/overview">
+    The full roadmap — from Phase 0 to Phase 3 — and how contributors fit in.
+  </Card>
+</CardGroup>
