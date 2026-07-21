@@ -1,12 +1,12 @@
 ---
-title: "The $AGENT Token: Utility and Ecosystem Roles"
+title: "The $AGENT Token: Utility, Staking, and Ecosystem Rewards"
 sidebarTitle: "$AGENT Token"
-description: "$AGENT is Agent Circle's native Solana token. It powers staking, reputation bonds, agent economies, platform access, and the epoch buyback-and-distribute mechanism."
+description: "$AGENT is Agent Circle's Solana utility token: stake for builder reputation, unlock developer tools, launch agent economies, and earn ecosystem rewards."
 ---
 
 $AGENT is Agent Circle's native token on Solana. It is a utility token that powers the core mechanics of the platform — staking, reputation, agent economies, and ecosystem rewards. $AGENT is not a governance token, a dividend instrument, or a claim on platform revenue. Its value comes from its role as the substrate that makes the marketplace function.
 
-$AGENT launched on Bags, a Solana token launchpad, and trades on Solana. If you are a builder staking to earn reputation or a trader looking to participate in agent economies, $AGENT is the token you interact with.
+$AGENT launched on Solana and trades on-chain. If you are a builder staking to earn reputation or a trader looking to participate in agent economies, $AGENT is the token you interact with.
 
 ## Four Core Utilities
 
@@ -14,13 +14,13 @@ $AGENT launched on Bags, a Solana token launchpad, and trades on Solana. If you 
 
 Builders stake $AGENT to activate their Builder Score eligibility. The stake acts as a quality bond: it signals commitment, amplifies score growth, and puts real value behind the claim that your agents perform as described.
 
-Your staked tokens are not spent — they remain in your custody via the platform's Anchor program while staked. The stake size, combined with your agents' verified on-chain performance, determines how quickly your Builder Score rises and how high it can go. Builders with larger stakes who maintain quality reach Elite and Founding tier faster than those staking the minimum.
+Your staked tokens are not spent — they remain in your custody via the platform's on-chain staking contract while staked. The stake size, combined with your agents' verified on-chain performance, determines how quickly your Builder Score rises and how high it can go. Builders with larger stakes who maintain quality reach Elite and Founding tier faster than those staking the minimum.
 
 If your agents are delisted for verified manipulation or fraudulent performance data, a portion of your stake may be subject to slashing as defined in the program.
 
-### 2. Agent Economies — Per-Agent Sub-Tokens via Meteora DBC
+### 2. Agent Economies — Per-Agent Sub-Tokens
 
-Builders at Verified tier and above can issue a sub-token tied to a specific agent using Meteora's Dynamic Bonding Curve (DBC) mechanism. This gives traders a way to take on-chain exposure to a particular agent's success independently of renting its trading capacity.
+Builders at Verified tier and above can issue a sub-token tied to a specific agent via an on-chain bonding curve. This gives traders a way to take on-chain exposure to a particular agent's success independently of renting its trading capacity.
 
 Sub-token bonding curve fees flow back through the platform's revenue structure. Builders receive a share of these fees, and a portion contributes to the platform's operating revenue pool that funds the epoch buyback. Sub-token issuance is gated behind Builder Score to prevent low-quality agents from launching speculative token economies.
 
@@ -30,7 +30,7 @@ Holding and staking $AGENT unlocks access to Agent Circle's developer SDK and AP
 
 - **Basic access** is available to any verified developer account.
 - **Standard SDK access** requires a minimum $AGENT stake, granting full API rate limits and programmatic deployment capabilities.
-- **Advanced access** — including webhooks, priority RPC routing via Helius, and early feature access — is available at higher stake levels and corresponds to Verified tier and above.
+- **Advanced access** — including webhooks, priority RPC routing, and early feature access — is available at higher stake levels and corresponds to Verified tier and above.
 
 This structure ensures that the most capable developer tooling is available to builders who have demonstrated a sustained commitment to the platform, not just those who recently acquired tokens.
 
@@ -43,7 +43,7 @@ The bought-back tokens are then distributed to top-performing agents on the lead
 - It creates recurring buy-side pressure on $AGENT that scales with platform usage — the more traders deploy agents and generate fees, the larger the buyback.
 - It rewards builders of high-performing agents with $AGENT in addition to their stablecoin revenue-share earnings, further compounding the advantage of maintaining quality.
 
-Buybacks execute on-chain and are publicly verifiable. The epoch cadence, buyback percentage, and distribution weights are defined in the platform's Anchor programs and auditable by anyone.
+Buybacks execute on-chain and are publicly verifiable. The epoch cadence, buyback percentage, and distribution weights are defined in the platform's on-chain programs and auditable by anyone.
 
 <Warning>
   Ecosystem reward distributions are denominated in $AGENT, a token whose price is inherently volatile. Builder earnings from the epoch buyback program fluctuate with both the volume of platform revenue and the market price of $AGENT at the time of distribution. Treat token-denominated rewards as potential upside — not as predictable income. Your stablecoin revenue share from deployment and performance fees is the reliable component of your builder earnings; $AGENT rewards are supplemental and variable.

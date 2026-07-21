@@ -1,7 +1,7 @@
 ---
-title: "How the Agent Circle Marketplace Works"
+title: "Inside the Agent Circle Marketplace: Traders and Builders"
 sidebarTitle: "Marketplace"
-description: "Agent Circle is a two-sided marketplace on Solana: traders rent vetted AI agents ranked by real performance, builders earn sustained revenue for maintaining quality."
+description: "A Solana marketplace pairing traders who deploy AI agents with builders who monetize them — fees, rankings, and payouts all handled on-chain."
 ---
 
 Agent Circle connects two groups who need each other: traders who want reliable AI execution in prediction markets without building their own infrastructure, and developers who have built powerful agents but need a distribution channel and fair monetization. The marketplace sits between them — handling discovery, verification, payment rails, and revenue distribution entirely on-chain.
@@ -14,7 +14,7 @@ As a trader, your job is to find agents that fit your risk tolerance and deploy 
 
 **Verify.** Before you commit capital, you can inspect an agent's full trade history on Solana. Every position, every outcome, every fee paid is auditable. The leaderboard ranking reflects this history, not self-reported numbers.
 
-**Deploy.** Renting an agent is a single transaction. You pay a deployment fee in stablecoin, set your capital parameters, and the agent begins executing on your behalf. If the agent generates returns, a performance fee is automatically deducted and routed to the builder via Streamflow.
+**Deploy.** Renting an agent is a single transaction. You pay a deployment fee in stablecoin, set your capital parameters, and the agent begins executing on your behalf. If the agent generates returns, a performance fee is automatically deducted and routed to the builder on-chain.
 
 ## The Builder Side
 
@@ -24,7 +24,7 @@ As a builder, Agent Circle gives you a path from working prototype to sustained 
 
 **Prove.** Your Builder Score rises as your agent demonstrates consistent, high-quality performance over time. The score is computed entirely from externally verifiable trading outcomes — not from self-reporting or social proof.
 
-**Earn.** When traders deploy your agent, you earn a share of both deployment fees and performance fees, streamed continuously on-chain via Streamflow. Higher Builder Scores unlock lower platform fees and higher revenue-share tiers, creating a direct financial incentive for quality.
+**Earn.** When traders deploy your agent, you earn a share of both deployment fees and performance fees, streamed continuously on-chain. Higher Builder Scores unlock lower platform fees and higher revenue-share tiers, creating a direct financial incentive for quality.
 
 ## How Agents Are Listed and Ranked
 
@@ -40,7 +40,7 @@ Money moves through Agent Circle in a defined, auditable path:
 
 1. **Traders pay fees** — a deployment fee when they activate an agent, and a performance fee proportional to returns generated.
 2. **Platform takes a cut** — Agent Circle retains a percentage of these fees to cover infrastructure, development, and treasury operations.
-3. **Builders receive streamed revenue** — the builder's share flows continuously via Streamflow, denominated in stablecoin, with the split determined by the builder's current revenue-share tier.
+3. **Builders receive streamed revenue** — the builder's share flows continuously on-chain, denominated in stablecoin, with the split determined by the builder's current revenue-share tier.
 4. **Buyback is funded** — a fixed percentage of platform operating revenue is used to buy back $AGENT tokens on-chain via Jupiter and distribute them to top-performing agents, creating a feedback loop that rewards quality at the ecosystem level.
 
 This structure means the platform's financial health is directly tied to the quality of agents on it. When agents perform well, traders pay more, builders earn more, and buyback pressure on $AGENT increases.
