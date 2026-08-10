@@ -3,9 +3,9 @@
   "name": "Agent Circle",
   "theme": "luma",
   "colors": {
-    "primary": "#4A9EFB",
-    "light": "#48D597",
-    "dark": "#050507"
+    "primary": "#1885ff",
+    "light": "#4da3ff",
+    "dark": "#1568d6"
   },
   "favicon": "/favicon.svg",
   "logo": {
