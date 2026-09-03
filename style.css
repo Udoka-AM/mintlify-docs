@@ -192,6 +192,50 @@ main {
   box-shadow: none !important;
 }
 
+/* ---- brand lockup -------------------------------------------------------
+   `logo` in docs.json is the mark alone, because Mintlify renders it as an
+   <img> and an <img> cannot use the brand fonts — a wordmark baked into the
+   image would be stuck in whatever typeface it was exported with, at one
+   fixed colour, and would not follow the theme.
+
+   So the wordmark is set here instead, in Geist Mono uppercase. That is not an
+   invention: it is exactly how udokaam.dev renders its own "UDOKA A.M."
+   top-left, and it means the wordmark inherits the theme's ink colour and
+   matches every other label in the system.
+
+   `:has()` is needed because the text has to attach to the anchor wrapping the
+   image, and an <img> cannot carry a pseudo-element itself. */
+
+.nav-logo {
+  height: 26px !important;
+  width: 26px !important;
+  object-fit: contain;
+}
+
+a:has(> .nav-logo) {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+}
+
+a:has(> .nav-logo)::after {
+  content: 'Agents Circle';
+  font-family: var(--ac-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--ac-ink);
+  white-space: nowrap;
+}
+
+/* The wordmark is the one label that should not shrink to muted grey; but on a
+   narrow viewport the mark alone carries the brand and the text only crowds. */
+@media (max-width: 640px) {
+  a:has(> .nav-logo)::after { display: none; }
+}
+
 /* Sidebar. Note the container has no stable id — .sidebar-group and
    .sidebar-title are the hooks, and the background is inherited from body. */
 .sidebar-group li a {
