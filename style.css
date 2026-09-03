@@ -8,22 +8,40 @@
    cells, a heavy grotesque for display, monospace for every label, and square
    corners everywhere.
 
-   Three deliberate rules that carry most of the character:
+   ## Selector safety — read before adding anything
+
+   Mintlify's markup is Tailwind. NEVER use [class*='...'] against it. Utility
+   classes embed words you are looking for in contexts you do not want:
+
+     a[class*='primary']  matched 45 elements, because every sidebar link
+                          carries `hover:text-primary`. It painted the whole
+                          sidebar as solid accent buttons.
+     #sidebar             does not exist at all. That entire block was dead.
+
+   Use one of these three instead, in order of preference:
+
+     1. [data-component-part="..."] — Mintlify's own stable component API.
+        Known parts: card-content-container, card-icon, card-title,
+        card-content, callout-icon, callout-content, step-line, step-number,
+        step-indicator, step-title, step-content.
+     2. Real component classes: .card, .callout, .sidebar-title,
+        .sidebar-group, .sidebar-group-header, .prose, .mdx-content.
+     3. [class~='token'] — whitespace-separated EXACT token match. `~=` will
+        match `text-primary` without also matching `hover:text-primary`,
+        which is precisely the distinction `*=` fails to make.
+
+   Stable ids: #navbar #header #content-area #content #table-of-contents
+
+   ## The three rules carrying the character
 
      1. NOTHING IS ROUNDED. Radius is zeroed globally. A ledger is ruled, not
         bubbled, and this single change does more to separate the page from
         default Mintlify than any colour would.
      2. LABELS ARE MONOSPACE, UPPERCASE, WIDE-TRACKED. Sidebar groups, table
-        headers, tabs, callout titles, card eyebrows. It is the connective
-        tissue that makes unrelated components read as one system.
+        headers, callout titles, card titles. It is the connective tissue that
+        makes unrelated components read as one system.
      3. BORDERS DO THE WORK, NOT SHADOWS AND FILLS. Cards, tables and callouts
         are defined by 1px rules on the page colour rather than raised panels.
-
-   Mintlify's internal class names are Tailwind-generated and can change between
-   releases. Selectors here lean on stable ids (#sidebar, #navbar, #content-area,
-   #table-of-contents), semantic elements, and the data-attributes Mintlify sets
-   for theming. If an upgrade breaks something visually, it will be one of the
-   class-based blocks near the bottom rather than the token layer at the top.
    ========================================================================== */
 
 /* ---------------------------------------------------------------- 1. tokens */
@@ -62,22 +80,18 @@ html.dark,
 
 /* --------------------------------------------------- 2. square everything */
 
-/* A ledger is ruled, not bubbled. This is the highest-leverage rule in the
-   file: Mintlify rounds nearly every surface, and zeroing it changes the
-   page's character more than the palette does. Deliberately broad, with the
-   two exceptions below where roundness is meaningful rather than decorative. */
 *,
 *::before,
 *::after {
   border-radius: 0 !important;
 }
 
-/* Avatars and the theme toggle knob stay round — a square avatar reads as a
-   rendering bug, not a design decision. */
-img[class*='rounded-full'],
-[class*='avatar'],
-[role='switch'] *,
-.rounded-full-keep {
+/* Round things whose roundness is meaningful rather than decorative — a square
+   avatar or toggle knob reads as a rendering bug, not a design decision. */
+img[class~='rounded-full'],
+[role='switch'] span,
+[data-component-part='step-number'],
+[data-component-part='step-indicator'] {
   border-radius: 9999px !important;
 }
 
@@ -93,83 +107,68 @@ body {
 }
 
 #content-area,
-main,
-[class*='bg-background'],
-[class*='bg-white'],
-[class*='bg-gray-950'] {
-  background-color: var(--ac-surface) !important;
+#content,
+main {
+  background-color: transparent !important;
 }
 
 /* ---------------------------------------------------------- 4. typography */
 
-h1, h2, h3, h4 {
+#content h1, #content h2, #content h3, #content h4,
+.prose h1, .prose h2, .prose h3, .prose h4 {
   font-family: var(--ac-display) !important;
   color: var(--ac-ink) !important;
   font-weight: 800 !important;
   letter-spacing: -0.03em !important;
-  line-height: 1.02 !important;
+  line-height: 1.05 !important;
 }
 
-h1 { font-size: clamp(34px, 5vw, 52px) !important; }
-h2 { font-size: clamp(24px, 3vw, 31px) !important; letter-spacing: -0.025em !important; }
-h3 { font-size: 20px !important; letter-spacing: -0.02em !important; }
-h4 { font-size: 16px !important; letter-spacing: -0.01em !important; }
+#content h1, .prose h1 { font-size: clamp(32px, 4.4vw, 48px) !important; }
+#content h2, .prose h2 { font-size: clamp(23px, 2.8vw, 29px) !important; letter-spacing: -0.025em !important; }
+#content h3, .prose h3 { font-size: 19px !important; letter-spacing: -0.02em !important; }
+#content h4, .prose h4 { font-size: 16px !important; letter-spacing: -0.01em !important; }
 
 /* Section headings sit under a hairline, the way ledger sections divide. */
-#content-area h2 {
+#content h2 {
   border-top: 1px solid var(--ac-rule);
-  padding-top: 1.6rem;
-  margin-top: 3rem;
+  padding-top: 1.5rem;
+  margin-top: 2.75rem;
 }
 
+#content p,
+#content li,
 .prose p,
-#content-area p,
-#content-area li {
+.prose li {
   font-family: var(--ac-body);
   font-size: 15.5px;
   line-height: 1.62;
   color: var(--ac-ink);
 }
 
-/* The opening paragraph of a page carries the lead size from the reference. */
-#content-area > div > p:first-of-type,
-.prose > p:first-of-type {
-  font-size: clamp(17px, 2vw, 19px);
-  line-height: 1.5;
-  color: var(--ac-ink);
-}
-
-#content-area a,
+#content a,
 .prose a {
   color: var(--ac-accent) !important;
   text-decoration: none;
   border-bottom: 1px solid color-mix(in srgb, var(--ac-accent) 35%, transparent);
-  transition: border-color .18s var(--ac-ease), color .18s var(--ac-ease);
+  transition: border-color .18s var(--ac-ease);
 }
 
-#content-area a:hover,
-.prose a:hover {
-  border-bottom-color: var(--ac-accent);
-}
+#content a:hover,
+.prose a:hover { border-bottom-color: var(--ac-accent); }
 
-strong { color: var(--ac-ink); font-weight: 600; }
+/* Card and callout links are whole blocks; an underline on them is noise. */
+.card a, a.card, .callout a[data-client-link] { border-bottom: none !important; }
+
+#content strong, .prose strong { color: var(--ac-ink); font-weight: 600; }
 
 /* --------------------------------------------- 5. labels are always mono */
 
-/* Sidebar group names, tab labels, table headers, callout titles, card
-   eyebrows. Uppercase mono at a small size with wide tracking is what makes
-   otherwise unrelated components read as one system. */
-#sidebar h5,
-#sidebar [class*='group-header'],
-#sidebar > div > div > div > h5,
-#navbar [class*='tab'],
-#navbar .tab,
-#table-of-contents > p:first-child,
-#table-of-contents [class*='font-medium']:first-child,
-[class*='callout'] > strong:first-child,
-[class*='callout'] > p:first-child > strong:only-child,
-[class*='Callout'] > strong:first-child,
-thead th {
+.sidebar-title,
+.sidebar-group-header,
+[data-component-part='card-title'],
+[data-component-part='step-title'],
+#content thead th,
+.prose thead th {
   font-family: var(--ac-mono) !important;
   font-size: 10.5px !important;
   font-weight: 700 !important;
@@ -178,45 +177,94 @@ thead th {
   color: var(--ac-muted) !important;
 }
 
+/* Card titles are labels but still need to read as the card's headline. */
+[data-component-part='card-title'] {
+  font-size: 11.5px !important;
+  color: var(--ac-ink) !important;
+}
+
 /* ------------------------------------------------------------ 6. chrome */
 
 #navbar,
-#header,
-header {
-  background: color-mix(in srgb, var(--ac-surface) 88%, transparent) !important;
-  backdrop-filter: saturate(140%) blur(8px);
+#header {
+  background: color-mix(in srgb, var(--ac-surface) 90%, transparent) !important;
   border-bottom: 1px solid var(--ac-rule) !important;
   box-shadow: none !important;
 }
 
-#sidebar {
-  background: var(--ac-surface) !important;
-  border-right: 1px solid var(--ac-rule) !important;
+/* ---- brand lockup -------------------------------------------------------
+   `logo` in docs.json is the mark alone, because Mintlify renders it as an
+   <img> and an <img> cannot use the brand fonts — a wordmark baked into the
+   image would be stuck in whatever typeface it was exported with, at one
+   fixed colour, and would not follow the theme.
+
+   So the wordmark is set here instead, in Geist Mono uppercase. That is not an
+   invention: it is exactly how udokaam.dev renders its own "UDOKA A.M."
+   top-left, and it means the wordmark inherits the theme's ink colour and
+   matches every other label in the system.
+
+   `:has()` is needed because the text has to attach to the anchor wrapping the
+   image, and an <img> cannot carry a pseudo-element itself. */
+
+.nav-logo {
+  height: 26px !important;
+  width: 26px !important;
+  object-fit: contain;
 }
 
-#sidebar a,
-#sidebar li a {
-  font-family: var(--ac-body);
-  font-size: 14px;
+a:has(> .nav-logo) {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+}
+
+a:has(> .nav-logo)::after {
+  content: 'Agents Circle';
+  font-family: var(--ac-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--ac-ink);
+  white-space: nowrap;
+}
+
+/* The wordmark is the one label that should not shrink to muted grey; but on a
+   narrow viewport the mark alone carries the brand and the text only crowds. */
+@media (max-width: 640px) {
+  a:has(> .nav-logo)::after { display: none; }
+}
+
+/* Sidebar. Note the container has no stable id — .sidebar-group and
+   .sidebar-title are the hooks, and the background is inherited from body. */
+.sidebar-group li a {
+  font-family: var(--ac-body) !important;
+  font-size: 14px !important;
   color: var(--ac-muted) !important;
-  border-left: 1px solid transparent;
-  border-radius: 0 !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  background: transparent !important;
+  border: none !important;
+  border-left: 2px solid transparent !important;
+  padding-left: 14px !important;
   transition: color .16s var(--ac-ease), border-color .16s var(--ac-ease);
 }
 
-#sidebar a:hover {
+.sidebar-group li a:hover {
   color: var(--ac-ink) !important;
   background: var(--ac-raise) !important;
 }
 
-/* Current page: an accent rule in the margin rather than a filled pill. */
-#sidebar a[aria-current='page'],
-#sidebar a[data-active='true'],
-#sidebar li a.active {
+/* Current page: an accent rule in the margin, not a filled pill.
+   `~=` matches the exact token `text-primary` on the active link without also
+   matching `hover:text-primary`, which every inactive link carries. */
+.sidebar-group li a[class~='text-primary'],
+.sidebar-group li a[class~='dark:text-primary-light'] {
   color: var(--ac-ink) !important;
   background: var(--ac-raise) !important;
-  border-left: 2px solid var(--ac-accent) !important;
-  font-weight: 600;
+  border-left-color: var(--ac-accent) !important;
+  font-weight: 600 !important;
 }
 
 #table-of-contents a {
@@ -234,8 +282,8 @@ code, pre, kbd, samp {
   font-variant-ligatures: none;
 }
 
-/* Inline code reads as a tag, not a highlight. */
-:not(pre) > code {
+#content :not(pre) > code,
+.prose :not(pre) > code {
   background: var(--ac-raise) !important;
   border: 1px solid var(--ac-rule) !important;
   color: var(--ac-ink) !important;
@@ -243,118 +291,98 @@ code, pre, kbd, samp {
   padding: 0.08em 0.36em !important;
 }
 
-pre {
+#content pre,
+.prose pre {
   background: color-mix(in srgb, var(--ac-ink) 4%, var(--ac-surface)) !important;
   border: 1px solid var(--ac-rule) !important;
   font-size: 13px !important;
   line-height: 1.65 !important;
 }
 
-pre code { background: transparent !important; border: none !important; }
+#content pre code { background: transparent !important; border: none !important; }
 
 /* ---------------------------------------------- 8. cards, tables, notes */
 
-/* Cards become ledger cells: hairline borders, no fill, no shadow. Hover
-   lifts the border rather than the box. */
-[class*='card'],
-a[class*='card'],
-div[class*='Card'] {
+/* Cards become ledger cells: hairline border, no fill, no shadow. Hover lifts
+   the border rather than the box. */
+.card {
   background: transparent !important;
   border: 1px solid var(--ac-rule) !important;
   box-shadow: none !important;
+  --tw-ring-color: transparent !important;
   transition: border-color .18s var(--ac-ease), background-color .18s var(--ac-ease);
 }
 
-[class*='card']:hover,
-a[class*='card']:hover {
+.card:hover {
   border-color: var(--ac-accent) !important;
   background: var(--ac-raise) !important;
 }
 
-table {
+[data-component-part='card-icon'] { color: var(--ac-accent) !important; }
+
+[data-component-part='card-content'] {
+  font-size: 14px !important;
+  color: var(--ac-muted) !important;
+}
+
+#content table, .prose table {
   border: 1px solid var(--ac-rule) !important;
   border-collapse: collapse !important;
   font-size: 14px;
 }
 
-th, td {
+#content th, #content td,
+.prose th, .prose td {
   border: 1px solid var(--ac-rule) !important;
   padding: 0.62rem 0.85rem !important;
 }
 
-thead { background: var(--ac-raise) !important; }
+#content thead, .prose thead { background: var(--ac-raise) !important; }
 
-/* Callouts: a coloured rule in the margin, not a tinted rounded panel. The
-   three accents map to the reference site's ledger semantics — debit for
-   neutral information, credit for confirmation, flag for warnings. */
-[class*='callout'],
-[class*='Callout'],
-blockquote {
+/* Callouts: a coloured rule in the margin, not a tinted rounded panel. Mintlify
+   distinguishes the variants only by Tailwind colour tokens, so the type is
+   read off those — scoped to .callout, which keeps the match safe. */
+.callout {
   background: var(--ac-raise) !important;
   border: 1px solid var(--ac-rule) !important;
   border-left: 3px solid var(--ac-accent) !important;
   box-shadow: none !important;
 }
 
-[class*='callout'][class*='warn'],
-[class*='callout'][class*='Warning'],
-[class*='warning'] {
-  border-left-color: var(--ac-flag) !important;
+.callout[class*='yellow'] { border-left-color: var(--ac-flag) !important; }
+.callout[class*='red'],
+.callout[class*='rose'] { border-left-color: var(--ac-flag) !important; }
+.callout[class*='green'],
+.callout[class*='emerald'] { border-left-color: var(--ac-credit) !important; }
+
+.callout [data-component-part='callout-icon'] { color: var(--ac-muted) !important; }
+.callout[class*='yellow'] [data-component-part='callout-icon'] { color: var(--ac-flag) !important; }
+.callout[class*='green'] [data-component-part='callout-icon'] { color: var(--ac-credit) !important; }
+
+.callout p { color: var(--ac-ink) !important; }
+
+#content blockquote, .prose blockquote {
+  background: var(--ac-raise) !important;
+  border-left: 3px solid var(--ac-rule) !important;
 }
+#content blockquote p { color: var(--ac-muted) !important; }
 
-[class*='callout'][class*='check'],
-[class*='callout'][class*='success'],
-[class*='Tip'],
-[class*='tip'] {
-  border-left-color: var(--ac-credit) !important;
-}
-
-/* The callout's own title inherits the mono label treatment above; this just
-   gives it room and stops it colliding with the body copy underneath. */
-[class*='callout'] > strong:first-child,
-[class*='Callout'] > strong:first-child {
-  display: block;
-  margin-bottom: 0.35rem;
-}
-
-blockquote p { color: var(--ac-muted) !important; }
-
-hr {
+#content hr, .prose hr {
   border: none !important;
   border-top: 1px solid var(--ac-rule) !important;
 }
 
 /* ------------------------------------------------------ 9. controls */
 
-button,
-input,
-select,
-[role='button'] {
-  font-family: var(--ac-body);
-}
-
-/* Search reads as a ruled field. */
-#search-bar-entry,
-[id*='search'] input,
-input[type='search'] {
+/* Search reads as a ruled field. Targeted by id rather than by class, because
+   anything class-based here risks the Tailwind trap described at the top. */
+#search-bar-entry {
   background: var(--ac-raise) !important;
   border: 1px solid var(--ac-rule) !important;
-  color: var(--ac-ink) !important;
+  color: var(--ac-muted) !important;
   font-family: var(--ac-mono) !important;
-  font-size: 12.5px !important;
-  letter-spacing: 0.04em;
-}
-
-/* The one solid-fill element on the page, so it stays the obvious action. */
-a[class*='primary'],
-button[class*='primary'] {
-  background: var(--ac-accent) !important;
-  color: var(--ac-surface) !important;
-  border: 1px solid var(--ac-accent) !important;
-  font-family: var(--ac-mono) !important;
-  font-size: 11.5px !important;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 12px !important;
+  letter-spacing: 0.08em;
 }
 
 ::selection {
