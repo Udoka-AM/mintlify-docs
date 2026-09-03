@@ -3,9 +3,9 @@
   "name": "Agent Circle",
   "theme": "luma",
   "colors": {
-    "primary": "#1885ff",
-    "light": "#4da3ff",
-    "dark": "#1568d6"
+    "primary": "#3f57b8",
+    "light": "#7a93e8",
+    "dark": "#22357a"
   },
   "favicon": "/favicon.svg",
   "logo": {
@@ -102,5 +102,17 @@
         ]
       }
     ]
+  },
+  "fonts": {
+    "heading": {
+      "family": "Bricolage Grotesque",
+      "weight": 800
+    },
+    "body": {
+      "family": "Public Sans"
+    }
+  },
+  "appearance": {
+    "default": "dark"
   }
 }

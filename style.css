@@ -1,0 +1,372 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Public+Sans:ital,wght@0,300..700;1,400;1,600&family=Geist+Mono:wght@400..700&display=swap');
+
+/* ============================================================================
+   Agent Circle — documentation design system
+   ----------------------------------------------------------------------------
+   An independent brand layer over Mintlify, following the design language of
+   udokaam.dev: a ledger. Near-black paper, hairline rules dividing content into
+   cells, a heavy grotesque for display, monospace for every label, and square
+   corners everywhere.
+
+   Three deliberate rules that carry most of the character:
+
+     1. NOTHING IS ROUNDED. Radius is zeroed globally. A ledger is ruled, not
+        bubbled, and this single change does more to separate the page from
+        default Mintlify than any colour would.
+     2. LABELS ARE MONOSPACE, UPPERCASE, WIDE-TRACKED. Sidebar groups, table
+        headers, tabs, callout titles, card eyebrows. It is the connective
+        tissue that makes unrelated components read as one system.
+     3. BORDERS DO THE WORK, NOT SHADOWS AND FILLS. Cards, tables and callouts
+        are defined by 1px rules on the page colour rather than raised panels.
+
+   Mintlify's internal class names are Tailwind-generated and can change between
+   releases. Selectors here lean on stable ids (#sidebar, #navbar, #content-area,
+   #table-of-contents), semantic elements, and the data-attributes Mintlify sets
+   for theming. If an upgrade breaks something visually, it will be one of the
+   class-based blocks near the bottom rather than the token layer at the top.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------- 1. tokens */
+
+:root {
+  --ac-surface: #f4f5f2;
+  --ac-ink: #12151a;
+  --ac-muted: #5b6560;
+  --ac-rule: #d3d7d1;
+  --ac-accent: #22357a;   /* debit  */
+  --ac-credit: #1b5e45;   /* credit */
+  --ac-flag: #a3341f;     /* flag   */
+  --ac-raise: #12151a08;
+  --ac-grid: #12151a12;
+
+  --ac-display: 'Bricolage Grotesque', 'Public Sans', system-ui, sans-serif;
+  --ac-body: 'Public Sans', system-ui, -apple-system, sans-serif;
+  --ac-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --ac-ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+html.dark,
+:root[data-theme='dark'],
+[data-theme='dark'] {
+  --ac-surface: #0f1214;
+  --ac-ink: #e8eae6;
+  --ac-muted: #8a948e;
+  --ac-rule: #242a2c;
+  --ac-accent: #7a93e8;
+  --ac-credit: #5fbf93;
+  --ac-flag: #e0724f;
+  --ac-raise: #e8eae60a;
+  --ac-grid: #e8eae612;
+}
+
+/* --------------------------------------------------- 2. square everything */
+
+/* A ledger is ruled, not bubbled. This is the highest-leverage rule in the
+   file: Mintlify rounds nearly every surface, and zeroing it changes the
+   page's character more than the palette does. Deliberately broad, with the
+   two exceptions below where roundness is meaningful rather than decorative. */
+*,
+*::before,
+*::after {
+  border-radius: 0 !important;
+}
+
+/* Avatars and the theme toggle knob stay round — a square avatar reads as a
+   rendering bug, not a design decision. */
+img[class*='rounded-full'],
+[class*='avatar'],
+[role='switch'] *,
+.rounded-full-keep {
+  border-radius: 9999px !important;
+}
+
+/* ------------------------------------------------------- 3. page surfaces */
+
+html,
+body {
+  background: var(--ac-surface) !important;
+  color: var(--ac-ink);
+  font-family: var(--ac-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+#content-area,
+main,
+[class*='bg-background'],
+[class*='bg-white'],
+[class*='bg-gray-950'] {
+  background-color: var(--ac-surface) !important;
+}
+
+/* ---------------------------------------------------------- 4. typography */
+
+h1, h2, h3, h4 {
+  font-family: var(--ac-display) !important;
+  color: var(--ac-ink) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.03em !important;
+  line-height: 1.02 !important;
+}
+
+h1 { font-size: clamp(34px, 5vw, 52px) !important; }
+h2 { font-size: clamp(24px, 3vw, 31px) !important; letter-spacing: -0.025em !important; }
+h3 { font-size: 20px !important; letter-spacing: -0.02em !important; }
+h4 { font-size: 16px !important; letter-spacing: -0.01em !important; }
+
+/* Section headings sit under a hairline, the way ledger sections divide. */
+#content-area h2 {
+  border-top: 1px solid var(--ac-rule);
+  padding-top: 1.6rem;
+  margin-top: 3rem;
+}
+
+.prose p,
+#content-area p,
+#content-area li {
+  font-family: var(--ac-body);
+  font-size: 15.5px;
+  line-height: 1.62;
+  color: var(--ac-ink);
+}
+
+/* The opening paragraph of a page carries the lead size from the reference. */
+#content-area > div > p:first-of-type,
+.prose > p:first-of-type {
+  font-size: clamp(17px, 2vw, 19px);
+  line-height: 1.5;
+  color: var(--ac-ink);
+}
+
+#content-area a,
+.prose a {
+  color: var(--ac-accent) !important;
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--ac-accent) 35%, transparent);
+  transition: border-color .18s var(--ac-ease), color .18s var(--ac-ease);
+}
+
+#content-area a:hover,
+.prose a:hover {
+  border-bottom-color: var(--ac-accent);
+}
+
+strong { color: var(--ac-ink); font-weight: 600; }
+
+/* --------------------------------------------- 5. labels are always mono */
+
+/* Sidebar group names, tab labels, table headers, callout titles, card
+   eyebrows. Uppercase mono at a small size with wide tracking is what makes
+   otherwise unrelated components read as one system. */
+#sidebar h5,
+#sidebar [class*='group-header'],
+#sidebar > div > div > div > h5,
+#navbar [class*='tab'],
+#navbar .tab,
+#table-of-contents > p:first-child,
+#table-of-contents [class*='font-medium']:first-child,
+[class*='callout'] > strong:first-child,
+[class*='callout'] > p:first-child > strong:only-child,
+[class*='Callout'] > strong:first-child,
+thead th {
+  font-family: var(--ac-mono) !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  color: var(--ac-muted) !important;
+}
+
+/* ------------------------------------------------------------ 6. chrome */
+
+#navbar,
+#header,
+header {
+  background: color-mix(in srgb, var(--ac-surface) 88%, transparent) !important;
+  backdrop-filter: saturate(140%) blur(8px);
+  border-bottom: 1px solid var(--ac-rule) !important;
+  box-shadow: none !important;
+}
+
+#sidebar {
+  background: var(--ac-surface) !important;
+  border-right: 1px solid var(--ac-rule) !important;
+}
+
+#sidebar a,
+#sidebar li a {
+  font-family: var(--ac-body);
+  font-size: 14px;
+  color: var(--ac-muted) !important;
+  border-left: 1px solid transparent;
+  border-radius: 0 !important;
+  transition: color .16s var(--ac-ease), border-color .16s var(--ac-ease);
+}
+
+#sidebar a:hover {
+  color: var(--ac-ink) !important;
+  background: var(--ac-raise) !important;
+}
+
+/* Current page: an accent rule in the margin rather than a filled pill. */
+#sidebar a[aria-current='page'],
+#sidebar a[data-active='true'],
+#sidebar li a.active {
+  color: var(--ac-ink) !important;
+  background: var(--ac-raise) !important;
+  border-left: 2px solid var(--ac-accent) !important;
+  font-weight: 600;
+}
+
+#table-of-contents a {
+  font-family: var(--ac-body);
+  font-size: 12.5px;
+  color: var(--ac-muted) !important;
+  border-bottom: none;
+}
+#table-of-contents a:hover { color: var(--ac-ink) !important; }
+
+/* ------------------------------------------------------------- 7. code */
+
+code, pre, kbd, samp {
+  font-family: var(--ac-mono) !important;
+  font-variant-ligatures: none;
+}
+
+/* Inline code reads as a tag, not a highlight. */
+:not(pre) > code {
+  background: var(--ac-raise) !important;
+  border: 1px solid var(--ac-rule) !important;
+  color: var(--ac-ink) !important;
+  font-size: 0.86em !important;
+  padding: 0.08em 0.36em !important;
+}
+
+pre {
+  background: color-mix(in srgb, var(--ac-ink) 4%, var(--ac-surface)) !important;
+  border: 1px solid var(--ac-rule) !important;
+  font-size: 13px !important;
+  line-height: 1.65 !important;
+}
+
+pre code { background: transparent !important; border: none !important; }
+
+/* ---------------------------------------------- 8. cards, tables, notes */
+
+/* Cards become ledger cells: hairline borders, no fill, no shadow. Hover
+   lifts the border rather than the box. */
+[class*='card'],
+a[class*='card'],
+div[class*='Card'] {
+  background: transparent !important;
+  border: 1px solid var(--ac-rule) !important;
+  box-shadow: none !important;
+  transition: border-color .18s var(--ac-ease), background-color .18s var(--ac-ease);
+}
+
+[class*='card']:hover,
+a[class*='card']:hover {
+  border-color: var(--ac-accent) !important;
+  background: var(--ac-raise) !important;
+}
+
+table {
+  border: 1px solid var(--ac-rule) !important;
+  border-collapse: collapse !important;
+  font-size: 14px;
+}
+
+th, td {
+  border: 1px solid var(--ac-rule) !important;
+  padding: 0.62rem 0.85rem !important;
+}
+
+thead { background: var(--ac-raise) !important; }
+
+/* Callouts: a coloured rule in the margin, not a tinted rounded panel. The
+   three accents map to the reference site's ledger semantics — debit for
+   neutral information, credit for confirmation, flag for warnings. */
+[class*='callout'],
+[class*='Callout'],
+blockquote {
+  background: var(--ac-raise) !important;
+  border: 1px solid var(--ac-rule) !important;
+  border-left: 3px solid var(--ac-accent) !important;
+  box-shadow: none !important;
+}
+
+[class*='callout'][class*='warn'],
+[class*='callout'][class*='Warning'],
+[class*='warning'] {
+  border-left-color: var(--ac-flag) !important;
+}
+
+[class*='callout'][class*='check'],
+[class*='callout'][class*='success'],
+[class*='Tip'],
+[class*='tip'] {
+  border-left-color: var(--ac-credit) !important;
+}
+
+/* The callout's own title inherits the mono label treatment above; this just
+   gives it room and stops it colliding with the body copy underneath. */
+[class*='callout'] > strong:first-child,
+[class*='Callout'] > strong:first-child {
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+blockquote p { color: var(--ac-muted) !important; }
+
+hr {
+  border: none !important;
+  border-top: 1px solid var(--ac-rule) !important;
+}
+
+/* ------------------------------------------------------ 9. controls */
+
+button,
+input,
+select,
+[role='button'] {
+  font-family: var(--ac-body);
+}
+
+/* Search reads as a ruled field. */
+#search-bar-entry,
+[id*='search'] input,
+input[type='search'] {
+  background: var(--ac-raise) !important;
+  border: 1px solid var(--ac-rule) !important;
+  color: var(--ac-ink) !important;
+  font-family: var(--ac-mono) !important;
+  font-size: 12.5px !important;
+  letter-spacing: 0.04em;
+}
+
+/* The one solid-fill element on the page, so it stays the obvious action. */
+a[class*='primary'],
+button[class*='primary'] {
+  background: var(--ac-accent) !important;
+  color: var(--ac-surface) !important;
+  border: 1px solid var(--ac-accent) !important;
+  font-family: var(--ac-mono) !important;
+  font-size: 11.5px !important;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--ac-accent) 30%, transparent);
+  color: var(--ac-ink);
+}
+
+/* ------------------------------------------------------ 10. reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+  }
+}
